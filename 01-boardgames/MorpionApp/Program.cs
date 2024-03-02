@@ -1,56 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MorpionApp;
 
-namespace MorpionApp
+public class Program
 {
-    public class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        PlayGames();
+    }
+
+    static void PlayGames()
+    {
+        while (true)
         {
             Console.WriteLine("Jouer à quel jeu ? Taper [X] pour le morpion et [P] pour le puissance 4.");
-        GetKey:
-            switch (Console.ReadKey(true).Key)
+            var key = Console.ReadKey(true).Key;
+            switch (key)
             {
                 case ConsoleKey.X:
-                    Morpion morpion = new Morpion();
-                    morpion.BoucleJeu();
+                    PlayMorpion();
                     break;
                 case ConsoleKey.P:
-                    PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
-                    puissanceQuatre.BoucleJeu();
-                    break;
-                default:
-                    goto GetKey;
-            }
-            Console.WriteLine("Jouer à un autre jeu ? Taper [R] pour changer de jeu. Taper [Echap] pour quitter.");
-        GetKey1:
-            switch (Console.ReadKey(true).Key)
-            {
-                case ConsoleKey.R:
-                    Console.WriteLine("Jouer à quel jeu ? Taper [X] pour le morpion et [P] pour le puissance 4.");
-                GetKey2:
-                    switch (Console.ReadKey(true).Key)
-                    {
-                        case ConsoleKey.X:
-                            Morpion morpion = new Morpion();
-                            morpion.BoucleJeu();
-                            break;
-                        case ConsoleKey.P:
-                            PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
-                            puissanceQuatre.BoucleJeu();
-                            break;
-                        default:
-                            goto GetKey2;
-                    }
+                    PlayPuissanceQuatre();
                     break;
                 case ConsoleKey.Escape:
-                    break;
+                    return;
                 default:
-                    goto GetKey1;
+                    Console.WriteLine("Choix invalide. Réessayez.");
+                    break;
             }
-        }        
+        }
+    }
+
+    static void PlayMorpion()
+    {
+        Morpion morpion = new Morpion();
+        morpion.BoucleJeu();
+    }
+
+    static void PlayPuissanceQuatre()
+    {
+        PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
+        puissanceQuatre.BoucleJeu();
     }
 }
