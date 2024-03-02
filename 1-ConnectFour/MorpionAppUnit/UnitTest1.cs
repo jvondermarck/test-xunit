@@ -1,5 +1,3 @@
-using System;
-
 namespace MorpionAppUnit;
 
 public class UnitTest1
