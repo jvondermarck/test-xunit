@@ -98,8 +98,6 @@ public class LinearEvaluator : IGameEvaluator
                 return false;
             }
 
-            Console.WriteLine($"Checking cell at row {row}, column {col}");
-
             if (board.GetCell(row, col) != symbol)
             {
                 return false;

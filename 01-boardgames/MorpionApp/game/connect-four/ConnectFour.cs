@@ -3,13 +3,18 @@
 public class ConnectFour : IGame
 {
     private readonly GameBoard board;
-    private PlayerSymbol currentPlayer = PlayerSymbol.X;
+    private IPlayer currentPlayer;
+    private readonly IPlayer player1;
+    private readonly IPlayer player2;
     private readonly IGameEvaluator evaluator;
 
-    public ConnectFour()
+    public ConnectFour(IPlayer player1, IPlayer player2)
     {
         board = new GameBoard(4, 7);
         evaluator = new LinearEvaluator(board, 4);
+        this.player1 = player1;
+        this.player2 = player2;
+        currentPlayer = player1;
     }
 
     public IGameEvaluator GetEvaluator()
@@ -22,54 +27,15 @@ public class ConnectFour : IGame
         do
         {
             board.Display();
-            HandlePlayerTurn();
+            currentPlayer.MakeMove(board);
         } while (!IsGameOver());
-    }
-
-    private void HandlePlayerTurn()
-    {
-        do
-        {
-            Console.WriteLine($"Joueur {(currentPlayer == PlayerSymbol.X ? 1 : 2)}, c'est à vous (symbole {currentPlayer}):");
-
-            if (int.TryParse(Console.ReadLine(), out int column) && column >= 1 && column <= 7)
-            {
-                int row = FindEmptyRow(column - 1);
-
-                if (row != -1)
-                {
-                    board.SetCell(row, column - 1, currentPlayer);
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("La colonne est pleine. Veuillez réessayer.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Saisie invalide. Veuillez entrer un nombre entre 1 et 7.");
-            }
-        } while (true);
-    }
-
-    private int FindEmptyRow(int column)
-    {
-        for (int row = board.GetRows() - 1; row >= 0; row--)
-        {
-            if (board.GetCell(row, column) == ' ')
-            {
-                return row;
-            }
-        }
-        return -1; // Column is full
     }
 
     public bool IsGameOver()
     {
-        if (evaluator.CheckForVictory(currentPlayer))
+        if (evaluator.CheckForVictory(currentPlayer.Symbol))
         {
-            EndGame($"Le joueur {(currentPlayer == PlayerSymbol.X ? 1 : 2)} a gagné !");
+            EndGame($"Le joueur {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} a gagné !");
             return true;
         }
 
@@ -79,7 +45,7 @@ public class ConnectFour : IGame
             return true;
         }
 
-        currentPlayer = currentPlayer == PlayerSymbol.X ? PlayerSymbol.O : PlayerSymbol.X;
+        currentPlayer = currentPlayer.Symbol == PlayerSymbol.X ? player2 : player1;
         return false;
     }
 
@@ -93,7 +59,8 @@ public class ConnectFour : IGame
     public void Restart()
     {
         board.Clear();
-        currentPlayer = PlayerSymbol.X;
+        currentPlayer = player1;
+        Play();
     }
 
     public GameBoard GetBoard()
@@ -103,6 +70,6 @@ public class ConnectFour : IGame
 
     public PlayerSymbol GetCurrentPlayerSymbol()
     {
-        return currentPlayer;
+        return currentPlayer.Symbol;
     }
 }

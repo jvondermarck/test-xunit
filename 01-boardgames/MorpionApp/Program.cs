@@ -24,7 +24,7 @@ public class Program
         }
 
         Console.WriteLine("Starting game...");
-        game = gameFactory.CreateGame();    
+        game = gameFactory.CreateGame();
         game.Play();
 
         Console.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");

@@ -1,17 +1,21 @@
-﻿using System.Dynamic;
-
+﻿
 namespace BoardGamesApp;
 
-public class Morpion : IGame
+public class TicTacToe : IGame
 {
     private readonly GameBoard board;
     private readonly IGameEvaluator evaluator;
-    private PlayerSymbol currentPlayer = PlayerSymbol.X;
+    private IPlayer currentPlayer;
+    private readonly IPlayer player1;
+    private readonly IPlayer player2;
 
-    public Morpion()
+    public TicTacToe(IPlayer player1, IPlayer player2)
     {
         board = new GameBoard(3, 3);
         evaluator = new LinearEvaluator(board, 3);
+        this.player1 = player1;
+        this.player2 = player2;
+        currentPlayer = player1;
     }
 
     public IGameEvaluator GetEvaluator()
@@ -24,43 +28,15 @@ public class Morpion : IGame
         do
         {
             board.Display();
-            HandlePlayerTurn();
+            currentPlayer.MakeMove(board);
         } while (!IsGameOver());
-    }
-
-    private void HandlePlayerTurn()
-    {
-        do
-        {
-            Console.WriteLine($"Joueur {(currentPlayer == PlayerSymbol.X ? 1 : 2)}, c'est à vous (symbole {currentPlayer}):");
-
-            if (int.TryParse(Console.ReadLine(), out int position) && position >= 1 && position <= 9)
-            {
-                int row = (position - 1) / 3;
-                int col = (position - 1) % 3;
-
-                if (board.GetCell(row, col) == ' ')
-                {
-                    board.SetCell(row, col, currentPlayer);
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("La case est déjà occupée. Veuillez réessayer.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Saisie invalide. Veuillez entrer un nombre entre 1 et 9.");
-            }
-        } while (true);
     }
 
     public bool IsGameOver()
     {
-        if (evaluator.CheckForVictory(currentPlayer))
+        if (evaluator.CheckForVictory(currentPlayer.Symbol))
         {
-            EndGame($"Le joueur {(currentPlayer == PlayerSymbol.X ? 1 : 2)} a gagné !");
+            EndGame($"Le joueur {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} a gagné !");
             return true;
         }
 
@@ -70,7 +46,7 @@ public class Morpion : IGame
             return true;
         }
 
-        currentPlayer = currentPlayer == PlayerSymbol.X ? PlayerSymbol.O : PlayerSymbol.X;
+        currentPlayer = currentPlayer.Symbol == PlayerSymbol.X ? player2 : player1;
         return false;
     }
 
@@ -84,7 +60,7 @@ public class Morpion : IGame
     public void Restart()
     {
         board.Clear();
-        currentPlayer = PlayerSymbol.X;
+        currentPlayer = player1;
         Play();
     }
 
@@ -95,6 +71,6 @@ public class Morpion : IGame
 
     public PlayerSymbol GetCurrentPlayerSymbol()
     {
-        return currentPlayer;
+        return currentPlayer.Symbol;
     }
 }
