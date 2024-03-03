@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorpionApp", "MorpionApp.csproj", "{A0418F92-68EA-4091-BC49-D5F9652BBFA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoardGamesApp", "BoardGamesApp.csproj", "{A0418F92-68EA-4091-BC49-D5F9652BBFA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MorpionApp.Tests", "..\MorpionApp.Tests\MorpionApp.Tests.csproj", "{F0B83920-0F39-450F-81C2-4892BC0AD501}"
 EndProject

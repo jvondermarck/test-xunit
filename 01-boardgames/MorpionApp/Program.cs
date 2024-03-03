@@ -1,44 +1,36 @@
-﻿namespace MorpionApp;
+﻿namespace BoardGamesApp;
 
 public class Program
 {
     static void Main(string[] args)
     {
-        PlayGames();
-    }
+        Console.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4.");
+        char choice = char.ToUpper(Console.ReadKey(true).KeyChar);
 
-    static void PlayGames()
-    {
-        while (true)
+        Game game;
+        IGameFactory gameFactory;
+
+        switch (choice)
         {
-            Console.WriteLine("Jouer à quel jeu ? Taper [X] pour le morpion et [P] pour le puissance 4.");
-            var key = Console.ReadKey(true).Key;
-            switch (key)
-            {
-                case ConsoleKey.X:
-                    PlayMorpion();
-                    break;
-                case ConsoleKey.P:
-                    PlayPuissanceQuatre();
-                    break;
-                case ConsoleKey.Escape:
-                    return;
-                default:
-                    Console.WriteLine("Choix invalide. Réessayez.");
-                    break;
-            }
+            case 'M':
+                gameFactory = new TicTacToeFactory();
+                break;
+            case 'P':
+                gameFactory = new ConnectFourFactory();
+                break;
+            default:
+                Console.WriteLine("Invalid choice. Exiting...");
+                return;
         }
-    }
 
-    static void PlayMorpion()
-    {
-        Morpion morpion = new Morpion();
-        morpion.BoucleJeu();
-    }
+        Console.WriteLine("Starting game...");
+        game = gameFactory.CreateGame();    
+        game.Play();
 
-    static void PlayPuissanceQuatre()
-    {
-        PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
-        puissanceQuatre.BoucleJeu();
+        Console.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");
+        char restartChoice = char.ToUpper(Console.ReadKey(true).KeyChar);
+
+        if (restartChoice == 'R')
+            game.Restart();
     }
 }
