@@ -16,11 +16,6 @@ public class Game
         currentGame.Play();
     }
 
-    public bool IsGameOver()
-    {
-        return evaluator.CheckForVictory(currentGame.GetCurrentPlayerSymbol()) || currentGame.IsGameOver();
-    }
-
     public void Restart()
     {
         currentGame.Restart();

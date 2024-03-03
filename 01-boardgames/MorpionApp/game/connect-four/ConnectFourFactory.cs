@@ -7,8 +7,17 @@ public class ConnectFourFactory : IGameFactory
         IPlayer player1 = CreatePlayer(1);
         IPlayer player2 = CreatePlayer(2);
 
-        IGame connectFourGame = new ConnectFour(player1, player2);
-        return new Game(connectFourGame, connectFourGame.GetEvaluator());
+        GameLogic gameLogic = new GameLogicBuilder()
+            .SetPlayer1(player1)
+            .SetPlayer2(player2)
+            .SetRows(4)
+            .SetColumns(7)
+            .SetTargetCount(4)
+            .Build();
+            
+        IGame connectFourGame = new ConnectFour(gameLogic);
+
+        return new Game(connectFourGame, gameLogic.GetEvaluator());
     }
 
     private IPlayer CreatePlayer(int playerNumber)

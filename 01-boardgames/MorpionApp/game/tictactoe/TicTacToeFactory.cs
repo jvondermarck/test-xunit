@@ -7,8 +7,17 @@ public class TicTacToeFactory : IGameFactory
         IPlayer player1 = CreatePlayer(1);
         IPlayer player2 = CreatePlayer(2);
 
-        IGame ticTacToeGame = new TicTacToe(player1, player2);
-        return new Game(ticTacToeGame, ticTacToeGame.GetEvaluator());
+        GameLogic gameLogic = new GameLogicBuilder()
+            .SetPlayer1(player1)
+            .SetPlayer2(player2)
+            .SetRows(3)
+            .SetColumns(3)
+            .SetTargetCount(3)
+            .Build();
+            
+        IGame ticTacToeGame = new TicTacToe(gameLogic);
+
+        return new Game(ticTacToeGame, gameLogic.GetEvaluator());
     }
 
     private IPlayer CreatePlayer(int playerNumber)
