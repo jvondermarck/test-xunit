@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace MorpionApp.Tests
+﻿namespace MorpionApp.Tests
 {
     public class MorpionTest
     {
