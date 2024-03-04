@@ -2,10 +2,13 @@
 
 public class Program
 {
-    static void Main(string[] args)
+static void Main(string[] args)
+{
+    char restartChoice;
+    do
     {
-        Console.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4.");
-        char choice = char.ToUpper(Console.ReadKey(true).KeyChar);
+        ConsoleHandler.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4.");
+        char choice = ConsoleHandler.ReadKey();
 
         Game game;
         IGameFactory gameFactory;
@@ -19,18 +22,17 @@ public class Program
                 gameFactory = new ConnectFourFactory();
                 break;
             default:
-                Console.WriteLine("Invalid choice. Exiting...");
+                ConsoleHandler.WriteLine("Invalid choice. Exiting...");
                 return;
         }
 
-        Console.WriteLine("Starting game...");
+        ConsoleHandler.WriteLine("Starting game...");
         game = gameFactory.CreateGame();
         game.Play();
 
-        Console.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");
-        char restartChoice = char.ToUpper(Console.ReadKey(true).KeyChar);
+        ConsoleHandler.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");
+        restartChoice = ConsoleHandler.ReadKey();
 
-        if (restartChoice == 'R')
-            game.Restart();
-    }
+    } while (restartChoice == 'R');
+}
 }
