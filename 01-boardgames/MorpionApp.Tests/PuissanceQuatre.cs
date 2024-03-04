@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace MorpionApp.Tests
 {
     public class PuissanceQuatreTest
@@ -70,5 +68,27 @@ namespace MorpionApp.Tests
             SetUp(grille);
             Assert.True(puissanceQuatre.verifVictoire(symbol), $"La vérification de la victoire a échoué pour le symbole {symbol} à la diagonale secondaire");
         }
+
+    [Fact]
+    [Trait("Category", "EqualityTests")]
+    public void TestVerifEgalite()
+    {
+        // Arrange
+        char[,] grille = new char[4, 7];
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                grille[i, j] = 'X'; // Fill all cells
+            }
+        }
+        SetUp(grille);
+
+        // Act
+        bool result = puissanceQuatre.verifEgalite();
+
+        // Assert
+        Assert.True(result, "La vérification de l'égalité a échoué alors que toutes les cellules sont remplies");
+    }
     }
 }
