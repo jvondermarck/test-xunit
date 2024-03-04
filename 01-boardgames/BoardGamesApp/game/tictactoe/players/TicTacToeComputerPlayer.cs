@@ -12,12 +12,11 @@ public class TicTacToeComputerPlayer : IPlayer
     public void MakeMove(GameBoard board)
     {
         var random = new Random();
-        int row;
-        int column;
+        int row, column;
         do
         {
-            row = random.Next(0, board.GetRows());
-            column = random.Next(0, board.GetColumns());
+            row = random.Next(0, board.Rows);
+            column = random.Next(0, board.Columns);
         } while (board.GetCell(row, column) != ' ');
 
         board.SetCell(row, column, Symbol);

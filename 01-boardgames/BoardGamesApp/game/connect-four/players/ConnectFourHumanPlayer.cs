@@ -34,7 +34,7 @@ public class ConnectFourHumanPlayer : IPlayer
 
     private int FindEmptyRow(int column, GameBoard board)
     {
-        for (int row = board.GetRows() - 1; row >= 0; row--)
+        for (int row = board.Rows - 1; row >= 0; row--)
         {
             if (board.IsCellEmpty(row, column))
             {

@@ -15,10 +15,10 @@ public class ConnectFourComputerPlayer : IPlayer
         int column;
         do
         {
-            column = random.Next(0, board.GetColumns());
+            column = random.Next(0, board.Columns);
         } while (board.IsCellEmpty(0, column) == false);
 
-        for (int row = board.GetRows() - 1; row >= 0; row--)
+        for (int row = board.Rows - 1; row >= 0; row--)
         {
             if (board.IsCellEmpty(row, column))
             {

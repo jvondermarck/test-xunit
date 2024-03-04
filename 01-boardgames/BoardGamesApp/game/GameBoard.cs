@@ -3,23 +3,23 @@ namespace BoardGamesApp;
 public class GameBoard
 {
     private char[,] board;
-    private readonly int rows;
-    private readonly int columns;
-    public const char EMPTY_CELL = ' ';
+    private const char EMPTY_CELL = ' ';
+    public int Rows { get; }
+    public int Columns { get; }
 
     public GameBoard(int rows, int columns)
     {
-        this.rows = rows;
-        this.columns = columns;
-        board = new char[rows, columns];
+        Rows = rows;
+        Columns = columns;
+        board = new char[Rows, Columns];
         InitializeBoard();
     }
 
     private void InitializeBoard()
     {
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < Rows; i++)
         {
-            for (int j = 0; j < columns; j++)
+            for (int j = 0; j < Columns; j++)
             {
                 board[i, j] = EMPTY_CELL;
             }
@@ -35,33 +35,24 @@ public class GameBoard
     public void Display()
     {
         ConsoleHandler.WriteLine("");
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < Rows; i++)
         {
-            for (int j = 0; j < columns; j++)
+            for (int j = 0; j < Columns; j++)
             {
                 ConsoleHandler.Write($" {board[i, j]} ");
-                if (j < columns - 1) ConsoleHandler.Write("|");
+                if (j < Columns - 1) ConsoleHandler.Write("|");
             }
             ConsoleHandler.WriteLine("");
-            if (i < rows - 1) Console.WriteLine(new string('-', columns * 4 - 1));
+            if (i < Rows - 1) Console.WriteLine(new string('-', Columns * 4 - 1));
         }
         ConsoleHandler.WriteLine("");
     }
-
     public bool IsFull()
     {
         foreach (var cell in board)
             if (cell == EMPTY_CELL) return false; 
         
         return true;
-    }
-
-    public int GetRows() {
-        return rows;
-    }
-
-    public int GetColumns() {
-        return columns;
     }
 
     public void Clear()

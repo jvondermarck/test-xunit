@@ -22,9 +22,9 @@ public class LinearEvaluator : IGameEvaluator
 
     private bool CheckRowsForWin(char symbol)
     {
-        for (int i = 0; i < board.GetRows(); i++)
+        for (int i = 0; i < board.Rows; i++)
         {
-            for (int j = 0; j <= board.GetColumns() - targetCount; j++)
+            for (int j = 0; j <= board.Columns - targetCount; j++)
             {
                 if (AreEqualInRow(symbol, i, j))
                 {
@@ -37,9 +37,9 @@ public class LinearEvaluator : IGameEvaluator
 
     private bool CheckColumnsForWin(char symbol)
     {
-        for (int i = 0; i <= board.GetRows() - targetCount; i++)
+        for (int i = 0; i <= board.Rows - targetCount; i++)
         {
-            for (int j = 0; j < board.GetColumns(); j++)
+            for (int j = 0; j < board.Columns; j++)
             {
                 if (AreEqualInColumn(symbol, i, j))
                 {
@@ -63,8 +63,8 @@ public class LinearEvaluator : IGameEvaluator
 
     private bool CheckDiagonalsForWinDirection(char symbol, int rowIncrement, int colIncrement)
     {
-        int rows = board.GetRows();
-        int cols = board.GetColumns();
+        int rows = board.Rows;
+        int cols = board.Columns;
 
         for (int i = 0; i <= rows - targetCount; i++)
         {
@@ -93,7 +93,7 @@ public class LinearEvaluator : IGameEvaluator
             int col = startCol + i * colIncrement;
 
             // Ensure that both row and column indices are within bounds
-            if (row < 0 || row >= board.GetRows() || col < 0 || col >= board.GetColumns())
+            if (row < 0 || row >= board.Rows || col < 0 || col >= board.Columns)
             {
                 return false;
             }
