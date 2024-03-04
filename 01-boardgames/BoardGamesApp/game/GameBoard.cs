@@ -5,6 +5,7 @@ public class GameBoard
     private char[,] board;
     private readonly int rows;
     private readonly int columns;
+    public const char EMPTY_CELL = ' ';
 
     public GameBoard(int rows, int columns)
     {
@@ -20,7 +21,7 @@ public class GameBoard
         {
             for (int j = 0; j < columns; j++)
             {
-                board[i, j] = ' ';
+                board[i, j] = EMPTY_CELL;
             }
         }
     }
@@ -29,33 +30,30 @@ public class GameBoard
 
     public void SetCell(int row, int column, PlayerSymbol symbol) => board[row, column] =  (char)symbol;
 
+    public bool IsCellEmpty(int row, int column) => board[row, column] == EMPTY_CELL;
+
     public void Display()
     {
-        Console.WriteLine();
+        ConsoleHandler.WriteLine("");
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
-                Console.Write($" {board[i, j]} ");
-                if (j < columns - 1) Console.Write("|");
+                ConsoleHandler.Write($" {board[i, j]} ");
+                if (j < columns - 1) ConsoleHandler.Write("|");
             }
-            Console.WriteLine();
+            ConsoleHandler.WriteLine("");
             if (i < rows - 1) Console.WriteLine(new string('-', columns * 4 - 1));
         }
-        Console.WriteLine();
+        ConsoleHandler.WriteLine("");
     }
 
     public bool IsFull()
     {
         foreach (var cell in board)
-        {
-            if (cell == ' ')
-            {
-                return false; // There's an empty space, the board is not full
-            }
-        }
-
-        return true; // All cells are filled, the board is full
+            if (cell == EMPTY_CELL) return false; 
+        
+        return true;
     }
 
     public int GetRows() {

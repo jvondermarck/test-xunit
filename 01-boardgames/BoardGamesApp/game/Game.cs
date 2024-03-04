@@ -3,12 +3,10 @@ namespace BoardGamesApp;
 public class Game
 {
     private readonly IGame currentGame;
-    private readonly IGameEvaluator evaluator;
 
-    public Game(IGame currentGame, IGameEvaluator evaluator)
+    public Game(IGame currentGame)
     {
         this.currentGame = currentGame;
-        this.evaluator = evaluator;
     }
 
     public void Play()

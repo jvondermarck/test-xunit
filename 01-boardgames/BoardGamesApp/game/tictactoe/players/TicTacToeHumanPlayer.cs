@@ -13,26 +13,21 @@ public class TicTacToeHumanPlayer : IPlayer
     {
         do
         {
-            Console.WriteLine($"Joueur {(Symbol == PlayerSymbol.X ? 1 : 2)}, c'est à vous (symbole {Symbol}):");
+            ConsoleHandler.WriteLine($"Joueur {(Symbol == PlayerSymbol.X ? 1 : 2)}, c'est à vous (symbole {Symbol}):");
 
-            if (int.TryParse(Console.ReadLine(), out int position) && position >= 1 && position <= 9)
+            int position = ConsoleHandler.ReadIntInRange(1, 9);
+
+            int row = (position - 1) / 3;
+            int col = (position - 1) % 3;
+
+            if (board.IsCellEmpty(row, col))
             {
-                int row = (position - 1) / 3;
-                int col = (position - 1) % 3;
-
-                if (board.GetCell(row, col) == ' ')
-                {
-                    board.SetCell(row, col, Symbol);
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("La case est déjà occupée. Veuillez réessayer.");
-                }
+                board.SetCell(row, col, Symbol);
+                return;
             }
             else
             {
-                Console.WriteLine("Saisie invalide. Veuillez entrer un nombre entre 1 et 9.");
+                ConsoleHandler.WriteLine("La case est déjà occupée. Veuillez réessayer.");
             }
         } while (true);
     }

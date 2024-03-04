@@ -6,15 +6,17 @@ public class GameLogic
     protected IPlayer currentPlayer;
     protected readonly IPlayer player1;
     protected readonly IPlayer player2;
-    protected readonly IGameEvaluator evaluator;
+    protected IGameEvaluator evaluator;
+    protected int targetCount;
 
-    public GameLogic(IPlayer player1, IPlayer player2, int rows, int columns, int targetCount)
+    public GameLogic(IPlayer player1, IPlayer player2, int rows, int columns, int targetCount, Func<GameBoard, IGameEvaluator> createEvaluator)
     {
-        board = new GameBoard(rows, columns);
-        evaluator = new LinearEvaluator(board, targetCount);
+        this.board = new GameBoard(rows, columns);
         this.player1 = player1;
         this.player2 = player2;
-        currentPlayer = player1;
+        this.currentPlayer = player1;
+        this.targetCount = targetCount;
+        this.evaluator = createEvaluator(board);
     }
 
     public void Play()
@@ -46,9 +48,9 @@ public class GameLogic
 
     public void EndGame(string message)
     {
-        Console.Clear();
+        ConsoleHandler.Clear();
         board.Display();
-        Console.WriteLine(message);
+        ConsoleHandler.WriteLine(message);
     }
 
     public void Restart()
@@ -61,11 +63,6 @@ public class GameLogic
     public GameBoard GetBoard()
     {
         return board;
-    }
-
-    public IGameEvaluator GetEvaluator()
-    {
-        return evaluator;
     }
 
     public PlayerSymbol GetCurrentPlayerSymbol()
