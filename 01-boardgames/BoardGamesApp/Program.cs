@@ -2,37 +2,37 @@
 
 public class Program
 {
-static void Main(string[] args)
-{
-    char restartChoice;
-    do
+    static void Main(string[] args)
     {
-        ConsoleHandler.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4.");
-        char choice = ConsoleHandler.ReadKey();
-
-        Game game;
-        IGameFactory gameFactory;
-
-        switch (choice)
+        char restartChoice;
+        do
         {
-            case 'M':
-                gameFactory = new TicTacToeFactory();
-                break;
-            case 'P':
-                gameFactory = new ConnectFourFactory();
-                break;
-            default:
-                ConsoleHandler.WriteLine("Invalid choice. Exiting...");
-                return;
-        }
+            ConsoleHandler.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4.");
+            char choice = ConsoleHandler.ReadKey();
 
-        ConsoleHandler.WriteLine("Starting game...");
-        game = gameFactory.CreateGame();
-        game.Play();
+            Game game;
+            IGameFactory gameFactory;
 
-        ConsoleHandler.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");
-        restartChoice = ConsoleHandler.ReadKey();
+            switch (choice)
+            {
+                case 'M':
+                    gameFactory = new TicTacToeFactory();
+                    break;
+                case 'P':
+                    gameFactory = new ConnectFourFactory();
+                    break;
+                default:
+                    ConsoleHandler.WriteLine("Invalid choice. Exiting...");
+                    return;
+            }
 
-    } while (restartChoice == 'R');
-}
+            ConsoleHandler.WriteLine("Starting game...");
+            game = gameFactory.CreateGame();
+            game.Play();
+
+            ConsoleHandler.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");
+            restartChoice = ConsoleHandler.ReadKey();
+
+        } while (restartChoice == 'R');
+    }
 }
