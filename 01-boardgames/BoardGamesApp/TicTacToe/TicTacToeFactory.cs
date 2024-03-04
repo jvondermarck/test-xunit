@@ -2,10 +2,17 @@
 
 public class TicTacToeFactory : IGameFactory
 {
+    private readonly PlayerFactory playerFactory;
+
+    public TicTacToeFactory(PlayerFactory playerFactory)
+    {
+        this.playerFactory = playerFactory;
+    }
+
     public Game CreateGame()
     {
-        IPlayer player1 = CreatePlayer(1);
-        IPlayer player2 = CreatePlayer(2);
+        IPlayer player1 = playerFactory.CreatePlayer(1, symbol => new TicTacToeHumanPlayer(symbol), symbol => new TicTacToeComputerPlayer(symbol));
+        IPlayer player2 = playerFactory.CreatePlayer(2, symbol => new TicTacToeHumanPlayer(symbol), symbol => new TicTacToeComputerPlayer(symbol));
         int targetCount = 3;
 
         GameLogic gameLogic = new GameLogicBuilder()
@@ -20,16 +27,5 @@ public class TicTacToeFactory : IGameFactory
         IGame ticTacToeGame = new TicTacToe(gameLogic);
 
         return new Game(ticTacToeGame);
-    }
-
-    private IPlayer CreatePlayer(int playerNumber)
-    {
-        char playerChoice = ConsoleHandler.GetPlayerChoice($"Player {playerNumber}: Choose 'H' for Human, 'C' for Computer.", new char[] { 'H', 'C' });
-        return (playerChoice == 'H') ? new TicTacToeHumanPlayer(GetPlayerSymbol(playerNumber)) : new TicTacToeComputerPlayer(GetPlayerSymbol(playerNumber));
-    }
-
-    private PlayerSymbol GetPlayerSymbol(int playerNumber)
-    {
-        return (playerNumber == 1) ? PlayerSymbol.X : PlayerSymbol.O;
     }
 }

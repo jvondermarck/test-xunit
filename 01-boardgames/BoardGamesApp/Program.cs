@@ -12,14 +12,15 @@ public class Program
 
             Game game;
             IGameFactory gameFactory;
+            PlayerFactory playerFactory = new PlayerFactory();
 
             switch (choice)
             {
                 case 'M':
-                    gameFactory = new TicTacToeFactory();
+                    gameFactory = new TicTacToeFactory(playerFactory);
                     break;
                 case 'P':
-                    gameFactory = new ConnectFourFactory();
+                    gameFactory = new ConnectFourFactory(playerFactory);
                     break;
                 default:
                     ConsoleHandler.WriteLine("Invalid choice. Exiting...");

@@ -2,10 +2,17 @@
 
 public class ConnectFourFactory : IGameFactory
 {
+    private readonly PlayerFactory playerFactory;
+
+    public ConnectFourFactory(PlayerFactory playerFactory)
+    {
+        this.playerFactory = playerFactory;
+    }
+
     public Game CreateGame()
     {
-        IPlayer player1 = CreatePlayer(1);
-        IPlayer player2 = CreatePlayer(2);
+        IPlayer player1 = playerFactory.CreatePlayer(1, symbol => new ConnectFourHumanPlayer(symbol), symbol => new ConnectFourComputerPlayer(symbol));
+        IPlayer player2 = playerFactory.CreatePlayer(2, symbol => new ConnectFourHumanPlayer(symbol), symbol => new ConnectFourComputerPlayer(symbol));
         int targetCount = 4;
 
         GameLogic gameLogic = new GameLogicBuilder()
@@ -20,16 +27,5 @@ public class ConnectFourFactory : IGameFactory
         IGame connectFourGame = new ConnectFour(gameLogic);
 
         return new Game(connectFourGame);
-    }
-
-    private IPlayer CreatePlayer(int playerNumber)
-    {
-        char playerChoice = ConsoleHandler.GetPlayerChoice($"Player {playerNumber}: Choose 'H' for Human, 'C' for Computer.", new char[] { 'H', 'C' });
-        return (playerChoice == 'H') ? new ConnectFourHumanPlayer(GetPlayerSymbol(playerNumber)) : new ConnectFourComputerPlayer(GetPlayerSymbol(playerNumber));
-    }
-
-    private PlayerSymbol GetPlayerSymbol(int playerNumber)
-    {
-        return (playerNumber == 1) ? PlayerSymbol.X : PlayerSymbol.O;
     }
 }
