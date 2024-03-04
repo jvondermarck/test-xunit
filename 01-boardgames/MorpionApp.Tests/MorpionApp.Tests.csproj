@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoardGamesApp\BoardGamesApp.csproj" />
+    <ProjectReference Include="..\MorpionApp\MorpionApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
