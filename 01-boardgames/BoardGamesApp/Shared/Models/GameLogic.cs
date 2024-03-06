@@ -1,6 +1,6 @@
 ﻿namespace BoardGamesApp;
 
-public class GameLogic
+public class GameLogic : IGame
 {
     protected readonly GameBoard board;
     protected IPlayer currentPlayer;
@@ -25,6 +25,7 @@ public class GameLogic
         {
             board.Display();
             currentPlayer.MakeMove(board);
+            //GameStateHandler.SaveGame(this);
         } while (!IsGameOver());
     }
 

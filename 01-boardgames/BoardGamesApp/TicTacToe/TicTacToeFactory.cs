@@ -9,7 +9,7 @@ public class TicTacToeFactory : IGameFactory
         this.playerFactory = playerFactory;
     }
 
-    public Game CreateGame()
+    public IGame CreateGame()
     {
         IPlayer player1 = playerFactory.CreatePlayer(1, symbol => new TicTacToeHumanPlayer(symbol), symbol => new TicTacToeComputerPlayer(symbol));
         IPlayer player2 = playerFactory.CreatePlayer(2, symbol => new TicTacToeHumanPlayer(symbol), symbol => new TicTacToeComputerPlayer(symbol));
@@ -26,6 +26,6 @@ public class TicTacToeFactory : IGameFactory
 
         IGame ticTacToeGame = new TicTacToe(gameLogic);
 
-        return new Game(ticTacToeGame);
+        return gameLogic;
     }
 }

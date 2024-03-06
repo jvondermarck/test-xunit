@@ -9,7 +9,7 @@ public class ConnectFourFactory : IGameFactory
         this.playerFactory = playerFactory;
     }
 
-    public Game CreateGame()
+    public IGame CreateGame()
     {
         IPlayer player1 = playerFactory.CreatePlayer(1, symbol => new ConnectFourHumanPlayer(symbol), symbol => new ConnectFourComputerPlayer(symbol));
         IPlayer player2 = playerFactory.CreatePlayer(2, symbol => new ConnectFourHumanPlayer(symbol), symbol => new ConnectFourComputerPlayer(symbol));
@@ -26,6 +26,6 @@ public class ConnectFourFactory : IGameFactory
 
         IGame connectFourGame = new ConnectFour(gameLogic);
 
-        return new Game(connectFourGame);
+        return gameLogic;
     }
 }
