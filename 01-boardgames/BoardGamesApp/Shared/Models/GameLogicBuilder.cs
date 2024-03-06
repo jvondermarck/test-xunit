@@ -47,27 +47,32 @@ public class GameLogicBuilder
 
     public GameLogic Build()
     {
+        Validate();
+
+        return new GameLogic(player1!, player2!, rows, columns, targetCount, evaluator!);
+    }
+
+    private void Validate()
+    {
         if (player1 == null || player2 == null)
         {
             throw new InvalidOperationException("Both players must be set before building the GameLogic object.");
         }
 
-        if(evaluator == null)
+        if (evaluator == null)
         {
             throw new InvalidOperationException("Evaluator must be set before building the GameLogic object.");
         }
 
-        if (rows == 0 || columns == 0)
+        if (rows <= 0 || columns <= 0)
         {
             throw new InvalidOperationException("Both rows and columns must be set before building the GameLogic object.");
         }
 
-        if (targetCount == 0)
+        if (targetCount <= 0)
         {
             throw new InvalidOperationException("Target count must be set before building the GameLogic object.");
         }
-
-        return new GameLogic(player1, player2, rows, columns, targetCount, evaluator);
     }
 }
 
