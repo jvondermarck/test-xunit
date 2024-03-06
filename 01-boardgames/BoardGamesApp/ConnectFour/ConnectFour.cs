@@ -13,6 +13,4 @@ public class ConnectFour : IGame
     public void Play() => gameLogic.Play();
     public bool IsGameOver() => gameLogic.IsGameOver();
     public void Restart() => gameLogic.Restart();
-    public GameBoard GetBoard() => gameLogic.GetBoard();
-    public PlayerSymbol GetCurrentPlayerSymbol() => gameLogic.GetCurrentPlayerSymbol();
 }

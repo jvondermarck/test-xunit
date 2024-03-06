@@ -2,8 +2,9 @@ namespace BoardGamesApp;
 
 public class GameBoard
 {
-    public char[,] board;
-    private const char EMPTY_CELL = ' ';
+    private const char EmptyCell = ' ';
+    private char[,] board;
+
     public int Rows { get; }
     public int Columns { get; }
 
@@ -21,19 +22,23 @@ public class GameBoard
         {
             for (int j = 0; j < Columns; j++)
             {
-                board[i, j] = EMPTY_CELL;
+                board[i, j] = EmptyCell;
             }
         }
     }
 
     public char GetCell(int row, int column) => board[row, column];
 
-    public void SetCell(int row, int column, PlayerSymbol symbol) {
-        if (!IsCellEmpty(row, column)) throw new InvalidOperationException("Cell is already occupied");
+    public void SetCell(int row, int column, PlayerSymbol symbol)
+    {
+        if (!IsCellEmpty(row, column))
+        {
+            throw new InvalidOperationException("Cell is already occupied");
+        }
         board[row, column] = (char)symbol;
-    } 
+    }
 
-    public bool IsCellEmpty(int row, int column) => board[row, column] == EMPTY_CELL;
+    public bool IsCellEmpty(int row, int column) => board[row, column] == EmptyCell;
 
     public void Display()
     {
@@ -42,38 +47,33 @@ public class GameBoard
         {
             for (int j = 0; j < Columns; j++)
             {
-                if (board[i, j] == (char)PlayerSymbol.X)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                }
-                else if (board[i, j] == (char)PlayerSymbol.O)
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                }
+                SetConsoleColor(board[i, j]);
                 ConsoleHandler.Write($" {board[i, j]} ");
                 Console.ResetColor();
                 if (j < Columns - 1) ConsoleHandler.Write("|");
             }
             ConsoleHandler.WriteLine("");
-            if (i < Rows - 1) Console.WriteLine(new string('-', Columns * 4 - 1));
+            if (i < Rows - 1) ConsoleHandler.WriteLine(new string('-', Columns * 4 - 1));
         }
         ConsoleHandler.WriteLine("");
     }
-    public bool IsFull()
+
+    private void SetConsoleColor(char cell)
     {
-        foreach (var cell in board)
-            if (cell == EMPTY_CELL) return false; 
-        
-        return true;
+        if (cell == (char)PlayerSymbol.X)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+        }
+        else if (cell == (char)PlayerSymbol.O)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+        }
     }
 
-    public void Clear()
-    {
-        InitializeBoard();
-    }
+    public bool IsFull() => board.Cast<char>().All(cell => cell != EmptyCell);
 
-    public char[,] SetBoard(char[,] board)
-    {
-        return this.board = board;
-    }
+    public void Clear() => InitializeBoard();
+
+    public char[,] SetBoard(char[,] newBoard) => board = newBoard;
+    public char[,] GetBoard() => board;
 }

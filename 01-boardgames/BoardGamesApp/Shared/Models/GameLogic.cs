@@ -32,9 +32,9 @@ public class GameLogic : IGame
     public void UpdateGameState()
     {
         var gameState = GameStateHandler.GameState;
-        gameState.BoardState = GetBoard().board.Cast<char>().ToList();
-        gameState.Rows = GetBoard().Rows;
-        gameState.Columns = GetBoard().Columns;
+        gameState.BoardState = board.GetBoard().Cast<char>().ToList();
+        gameState.Rows = board.Rows;
+        gameState.Columns = board.Columns;
         gameState.TargetCount = targetCount;
         gameState.CurrentPlayer = GetNextPlayer().GetType().Name;
         gameState.CurrentPlayerSymbol = (char)GetNextPlayer().Symbol;
@@ -82,9 +82,7 @@ public class GameLogic : IGame
 
     private IPlayer GetNextPlayer() => currentPlayer == player1 ? player2 : player1;
 
-    public GameBoard GetBoard() => board;
-
-    public PlayerSymbol GetCurrentPlayerSymbol() => currentPlayer.Symbol;
+    public GameBoard GetGameBoard() => board;
 
     public void SetCurrentPlayer(IPlayer player) => currentPlayer = player;
 }

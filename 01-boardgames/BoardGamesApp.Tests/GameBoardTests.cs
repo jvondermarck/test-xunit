@@ -18,7 +18,7 @@ public class GameBoardTests
     public void GameBoard_Initialization_ShouldCreateEmptyBoard()
     {
         // Act
-        char[,] board = gameBoard.board;
+        char[,] board = gameBoard.GetBoard();
 
         // Assert
         Assert.All(board.Cast<char>(), cell => Assert.Equal(' ', cell));

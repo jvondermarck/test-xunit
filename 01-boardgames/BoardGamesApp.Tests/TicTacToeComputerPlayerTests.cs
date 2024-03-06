@@ -13,7 +13,7 @@ public class TicTacToeComputerPlayerTests
         computerPlayer.MakeMove(gameBoard);
 
         // Assert that the computer player made a valid move
-        Assert.All(gameBoard.board.Cast<char>(), cell => {
+        Assert.All(gameBoard.GetBoard().Cast<char>(), cell => {
             if (cell != 'X') {
                 Assert.Equal(' ', cell);
             }

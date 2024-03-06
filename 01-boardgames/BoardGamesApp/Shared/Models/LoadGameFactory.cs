@@ -8,13 +8,15 @@ public class LoadGameFactory
 
         // Create the board
         GameBoard board = new GameBoard(state.Rows, state.Columns);
+        char [,] boardState = new char[state.Rows, state.Columns];
         for (int i = 0; i < state.Rows; i++)
         {
             for (int j = 0; j < state.Columns; j++)
             {
-                board.board[i, j] = state.BoardState[i * state.Columns + j];
+                boardState[i, j] = state.BoardState[i * state.Columns + j];
             }
         }
+        board.SetBoard(boardState);
 
         // Create the players
         IPlayer player1 = CreatePlayer(state.Player1Type, GetPlayerSymbol(state.Player1Symbol));
@@ -25,7 +27,7 @@ public class LoadGameFactory
 
         // Create the game logic
         GameLogic game = new GameLogic(player1, player2, state.Rows, state.Columns, state.TargetCount, evaluator);
-        game.GetBoard().board = board.board;
+        game.GetGameBoard().SetBoard(board.GetBoard());
         game.SetCurrentPlayer(state.CurrentPlayer == player1.Symbol.ToString() ? player1 : player2);
 
         return game;
