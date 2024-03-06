@@ -2,7 +2,7 @@ namespace BoardGamesApp;
 
 public class GameBoard
 {
-    private char[,] board;
+    public char[,] board;
     private const char EMPTY_CELL = ' ';
     public int Rows { get; }
     public int Columns { get; }
@@ -58,5 +58,10 @@ public class GameBoard
     public void Clear()
     {
         InitializeBoard();
+    }
+
+    public char[,] SetBoard(char[,] board)
+    {
+        return this.board = board;
     }
 }

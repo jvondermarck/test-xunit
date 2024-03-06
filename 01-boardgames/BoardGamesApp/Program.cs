@@ -4,7 +4,7 @@ public class Program
 {
     static void Main()
     {
-        char restartChoice;
+        char restartChoice = 'R';
         do
         {
             ConsoleHandler.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4, 'L' to Load a saved game.");
@@ -23,12 +23,18 @@ public class Program
                     IGameFactory gameFactoryP = new ConnectFourFactory(playerFactory);
                     game = gameFactoryP.CreateGame();
                     break;
-                // case 'L':
-                //     game = GameStateHandler.LoadGame();
-                //     break;
+                case 'L':
+                    try {
+                        GameStateHandler.LoadGame();
+                        LoadGameFactory gameFactoryL = new LoadGameFactory();
+                        game = gameFactoryL.CreateGame();
+                    } catch (Exception) {
+                        goto default;
+                    }
+                    break;
                 default:
-                    ConsoleHandler.WriteLine("Invalid choice. Exiting...");
-                    return;
+                    ConsoleHandler.WriteLine("Invalid choice. Please try again.");
+                    continue;
             }
 
             ConsoleHandler.WriteLine("Starting game...");

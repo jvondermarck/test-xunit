@@ -2,7 +2,7 @@
 
 public class GameLogic : IGame
 {
-    protected readonly GameBoard board;
+    protected GameBoard board;
     protected IPlayer currentPlayer;
     protected readonly IPlayer player1;
     protected readonly IPlayer player2;
@@ -25,26 +25,42 @@ public class GameLogic : IGame
         {
             board.Display();
             currentPlayer.MakeMove(board);
-            //GameStateHandler.SaveGame(this);
+            UpdateGameState();
         } while (!IsGameOver());
+    }
+
+    public void UpdateGameState()
+    {
+        GameStateHandler.GameState.BoardState = GetBoard().board.Cast<char>().ToList();
+        GameStateHandler.GameState.Rows = GetBoard().Rows;
+        GameStateHandler.GameState.Columns = GetBoard().Columns;
+        GameStateHandler.GameState.TargetCount = targetCount;
+        GameStateHandler.GameState.CurrentPlayer = GetNextPlayer().GetType().Name;
+        GameStateHandler.GameState.CurrentPlayerSymbol = (char)GetNextPlayer().Symbol;
+        GameStateHandler.GameState.Player1Type = player1.GetType().Name;
+        GameStateHandler.GameState.Player2Type = player2.GetType().Name;
+        GameStateHandler.GameState.Player1Symbol = player1.Symbol.ToString();
+        GameStateHandler.GameState.Player2Symbol = player2.Symbol.ToString();
+        GameStateHandler.GameState.EvaluatorType = evaluator.GetType().Name;
+        GameStateHandler.SaveGame();
     }
 
     public bool IsGameOver()
     {
+        bool IsGameOver = false;
         if (evaluator.CheckForVictory(currentPlayer.Symbol))
         {
             EndGame($"Le joueur {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} a gagné !");
-            return true;
-        }
-
-        if (board.IsFull())
+            IsGameOver = true;
+        } else if (board.IsFull())
         {
             EndGame("Aucun vainqueur, la partie se termine sur une égalité.");
-            return true;
+            IsGameOver = true;
         }
 
-        currentPlayer = currentPlayer.Symbol == PlayerSymbol.X ? player2 : player1;
-        return false;
+        UpdateCurrentPlayer();
+
+        return IsGameOver;
     }
 
     public void EndGame(string message)
@@ -61,13 +77,13 @@ public class GameLogic : IGame
         Play();
     }
 
-    public GameBoard GetBoard()
-    {
-        return board;
-    }
+    private void UpdateCurrentPlayer() => currentPlayer = GetNextPlayer();
 
-    public PlayerSymbol GetCurrentPlayerSymbol()
-    {
-        return currentPlayer.Symbol;
-    }
+    private IPlayer GetNextPlayer() =>  currentPlayer == player1 ? player2 : player1;
+
+    public GameBoard GetBoard() => board;
+
+    public PlayerSymbol GetCurrentPlayerSymbol() => currentPlayer.Symbol;
+
+    public void SetCurrentPlayer(IPlayer player) => currentPlayer = player;
 }
