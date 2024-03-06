@@ -20,6 +20,21 @@ public class LinearEvaluator : IGameEvaluator
                CheckDiagonalsForWin(symbol);
     }
 
+    public bool CheckForDraw()
+    {
+        for (int i = 0; i < board.Rows; i++)
+        {
+            for (int j = 0; j < board.Columns; j++)
+            {
+                if (board.GetCell(i, j) == ' ')
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private bool CheckRowsForWin(char symbol)
     {
         for (int i = 0; i < board.Rows; i++)

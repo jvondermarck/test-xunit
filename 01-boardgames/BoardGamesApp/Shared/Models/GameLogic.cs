@@ -50,11 +50,11 @@ public class GameLogic : IGame
         bool IsGameOver = false;
         if (evaluator.CheckForVictory(currentPlayer.Symbol))
         {
-            EndGame($"Le joueur {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} a gagné !");
+            EndGame($"The player {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} won !");
             IsGameOver = true;
-        } else if (board.IsFull())
+        } else if (evaluator.CheckForDraw())
         {
-            EndGame("Aucun vainqueur, la partie se termine sur une égalité.");
+            EndGame("Arrh, this game is a draw!");
             IsGameOver = true;
         }
 
