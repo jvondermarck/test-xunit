@@ -28,7 +28,10 @@ public class GameBoard
 
     public char GetCell(int row, int column) => board[row, column];
 
-    public void SetCell(int row, int column, PlayerSymbol symbol) => board[row, column] =  (char)symbol;
+    public void SetCell(int row, int column, PlayerSymbol symbol) {
+        if (!IsCellEmpty(row, column)) throw new InvalidOperationException("Cell is already occupied");
+        board[row, column] = (char)symbol;
+    } 
 
     public bool IsCellEmpty(int row, int column) => board[row, column] == EMPTY_CELL;
 
