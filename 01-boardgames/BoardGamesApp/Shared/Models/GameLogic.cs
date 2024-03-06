@@ -11,12 +11,12 @@ public class GameLogic : IGame
 
     public GameLogic(IPlayer player1, IPlayer player2, int rows, int columns, int targetCount, Func<GameBoard, IGameEvaluator> createEvaluator)
     {
-        this.board = new GameBoard(rows, columns);
+        board = new GameBoard(rows, columns);
         this.player1 = player1;
         this.player2 = player2;
-        this.currentPlayer = player1;
+        currentPlayer = player1;
         this.targetCount = targetCount;
-        this.evaluator = createEvaluator(board);
+        evaluator = createEvaluator(board);
     }
 
     public void Play()
@@ -31,36 +31,37 @@ public class GameLogic : IGame
 
     public void UpdateGameState()
     {
-        GameStateHandler.GameState.BoardState = GetBoard().board.Cast<char>().ToList();
-        GameStateHandler.GameState.Rows = GetBoard().Rows;
-        GameStateHandler.GameState.Columns = GetBoard().Columns;
-        GameStateHandler.GameState.TargetCount = targetCount;
-        GameStateHandler.GameState.CurrentPlayer = GetNextPlayer().GetType().Name;
-        GameStateHandler.GameState.CurrentPlayerSymbol = (char)GetNextPlayer().Symbol;
-        GameStateHandler.GameState.Player1Type = player1.GetType().Name;
-        GameStateHandler.GameState.Player2Type = player2.GetType().Name;
-        GameStateHandler.GameState.Player1Symbol = player1.Symbol.ToString();
-        GameStateHandler.GameState.Player2Symbol = player2.Symbol.ToString();
-        GameStateHandler.GameState.EvaluatorType = evaluator.GetType().Name;
+        var gameState = GameStateHandler.GameState;
+        gameState.BoardState = GetBoard().board.Cast<char>().ToList();
+        gameState.Rows = GetBoard().Rows;
+        gameState.Columns = GetBoard().Columns;
+        gameState.TargetCount = targetCount;
+        gameState.CurrentPlayer = GetNextPlayer().GetType().Name;
+        gameState.CurrentPlayerSymbol = (char)GetNextPlayer().Symbol;
+        gameState.Player1Type = player1.GetType().Name;
+        gameState.Player2Type = player2.GetType().Name;
+        gameState.Player1Symbol = player1.Symbol.ToString();
+        gameState.Player2Symbol = player2.Symbol.ToString();
+        gameState.EvaluatorType = evaluator.GetType().Name;
         GameStateHandler.SaveGame();
     }
 
     public bool IsGameOver()
     {
-        bool IsGameOver = false;
         if (evaluator.CheckForVictory(currentPlayer.Symbol))
         {
-            EndGame($"The player {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} won !");
-            IsGameOver = true;
-        } else if (evaluator.CheckForDraw())
+            EndGame($"The player {(currentPlayer.Symbol == PlayerSymbol.X ? 1 : 2)} won!");
+            return true;
+        }
+
+        if (evaluator.CheckForDraw())
         {
             EndGame("Arrh, this game is a draw!");
-            IsGameOver = true;
+            return true;
         }
 
         UpdateCurrentPlayer();
-
-        return IsGameOver;
+        return false;
     }
 
     public void EndGame(string message)
@@ -79,7 +80,7 @@ public class GameLogic : IGame
 
     private void UpdateCurrentPlayer() => currentPlayer = GetNextPlayer();
 
-    private IPlayer GetNextPlayer() =>  currentPlayer == player1 ? player2 : player1;
+    private IPlayer GetNextPlayer() => currentPlayer == player1 ? player2 : player1;
 
     public GameBoard GetBoard() => board;
 
