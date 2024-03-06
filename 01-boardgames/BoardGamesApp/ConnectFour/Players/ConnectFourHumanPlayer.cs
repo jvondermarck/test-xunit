@@ -16,7 +16,7 @@ public class ConnectFourHumanPlayer : IPlayer
     {
         do
         {
-            ConsoleHandler.DisplayPlayerTurn(Symbol, MIN_COLUMN);
+            ConsoleHandler.DisplayPlayerTurn(Symbol, MAX_COLUMN);
 
             int column = ConsoleHandler.ReadIntInRange(MIN_COLUMN, MAX_COLUMN);
 
