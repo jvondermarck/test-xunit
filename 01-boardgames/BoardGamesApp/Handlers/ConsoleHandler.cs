@@ -19,7 +19,14 @@ public class ConsoleHandler
 
     public static char ReadKey()
     {
-        return char.ToUpper(Console.ReadKey(true).KeyChar);
+        char input = char.ToUpper(Console.ReadKey(false).KeyChar);
+        Console.WriteLine("");
+        return input;
+    }
+
+    public static void DisplayPlayerTurn(PlayerSymbol symbol, int maxPosition)
+    {
+        Write($"Player {(symbol == PlayerSymbol.X ? 1 : 2)} - ({symbol}): choose a position (1-{maxPosition}) : ");
     }
 
     public static int ReadIntInRange(int min, int max)
@@ -40,7 +47,7 @@ public class ConsoleHandler
 
     public static char GetPlayerChoice(string prompt, char[] validChoices)
     {
-        WriteLine(prompt);
+        Write(prompt);
         char playerChoice = ReadKey();
 
         while (!validChoices.Contains(playerChoice))

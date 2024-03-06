@@ -7,7 +7,7 @@ public class Program
         char restartChoice = 'R';
         do
         {
-            ConsoleHandler.WriteLine("Choose a game: Type 'M' for Morpion, 'P' for Puissance 4, 'L' to Load a saved game.");
+            ConsoleHandler.Write("Type 'T' for TicTacToe, 'C' for ConnectFour, 'L' to Load a saved game: ");
             char choice = ConsoleHandler.ReadKey();
 
             IGame game;
@@ -15,11 +15,11 @@ public class Program
 
             switch (choice)
             {
-                case 'M':
+                case 'T':
                     IGameFactory gameFactoryM = new TicTacToeFactory(playerFactory);
                     game = gameFactoryM.CreateGame();
                     break;
-                case 'P':
+                case 'C':
                     IGameFactory gameFactoryP = new ConnectFourFactory(playerFactory);
                     game = gameFactoryP.CreateGame();
                     break;
@@ -37,10 +37,9 @@ public class Program
                     continue;
             }
 
-            ConsoleHandler.WriteLine("Starting game...");
             game.Play();
 
-            ConsoleHandler.WriteLine("Play another game? Type 'R' to restart, 'Q' to quit.");
+            ConsoleHandler.Write("Play another game? Type 'R' to restart, 'Q' to quit: ");
             restartChoice = ConsoleHandler.ReadKey();
 
         } while (restartChoice == 'R');

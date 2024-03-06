@@ -4,6 +4,8 @@ public class ConnectFourHumanPlayer : IPlayer
 {
     public PlayerSymbol Symbol { get; set; }
     private const int COLUMN_FULL = -1;
+    private const int MIN_COLUMN = 1;
+    private const int MAX_COLUMN = 7;
 
     public ConnectFourHumanPlayer(PlayerSymbol symbol)
     {
@@ -14,9 +16,9 @@ public class ConnectFourHumanPlayer : IPlayer
     {
         do
         {
-            ConsoleHandler.WriteLine($"Joueur {(Symbol == PlayerSymbol.X ? 1 : 2)}, c'est à vous (symbole {Symbol}):");
+            ConsoleHandler.DisplayPlayerTurn(Symbol, MIN_COLUMN);
 
-            int column = ConsoleHandler.ReadIntInRange(1, 7);
+            int column = ConsoleHandler.ReadIntInRange(MIN_COLUMN, MAX_COLUMN);
 
             int row = FindEmptyRow(column - 1, board);
 
@@ -27,7 +29,7 @@ public class ConnectFourHumanPlayer : IPlayer
             }
             else
             {
-                ConsoleHandler.WriteLine("La colonne est pleine. Veuillez réessayer.");
+                ConsoleHandler.WriteLine("The column is full. Please try again.");
             }
         } while (true);
     }

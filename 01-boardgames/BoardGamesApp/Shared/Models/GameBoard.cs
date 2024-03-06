@@ -39,7 +39,16 @@ public class GameBoard
         {
             for (int j = 0; j < Columns; j++)
             {
+                if (board[i, j] == (char)PlayerSymbol.X)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else if (board[i, j] == (char)PlayerSymbol.O)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
                 ConsoleHandler.Write($" {board[i, j]} ");
+                Console.ResetColor();
                 if (j < Columns - 1) ConsoleHandler.Write("|");
             }
             ConsoleHandler.WriteLine("");

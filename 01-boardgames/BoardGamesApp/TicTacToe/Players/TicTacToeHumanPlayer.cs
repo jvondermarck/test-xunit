@@ -3,6 +3,8 @@
 public class TicTacToeHumanPlayer : IPlayer
 {
     public PlayerSymbol Symbol { get; }
+    private const int MAX_POSITION = 9;
+    private const int MIN_POSITION = 1;
 
     public TicTacToeHumanPlayer(PlayerSymbol symbol)
     {
@@ -13,12 +15,12 @@ public class TicTacToeHumanPlayer : IPlayer
     {
         do
         {
-            ConsoleHandler.WriteLine($"Joueur {(Symbol == PlayerSymbol.X ? 1 : 2)}, c'est à vous (symbole {Symbol}):");
+            ConsoleHandler.DisplayPlayerTurn(Symbol, MAX_POSITION);
 
-            int position = ConsoleHandler.ReadIntInRange(1, 9);
+            int position = ConsoleHandler.ReadIntInRange(MIN_POSITION, MAX_POSITION);
 
-            int row = (position - 1) / 3;
-            int col = (position - 1) % 3;
+            int row = (position - 1) / board.Columns;
+            int col = (position - 1) % board.Columns;
 
             if (board.IsCellEmpty(row, col))
             {
@@ -27,7 +29,7 @@ public class TicTacToeHumanPlayer : IPlayer
             }
             else
             {
-                ConsoleHandler.WriteLine("La case est déjà occupée. Veuillez réessayer.");
+                ConsoleHandler.WriteLine("The position is already taken. Please try again.");
             }
         } while (true);
     }
