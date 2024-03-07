@@ -88,10 +88,12 @@ public class LinearEvaluator : IGameEvaluator
                 // Ensure we stay within bounds for diagonal evaluation
                 if (i + targetCount <= rows && j + targetCount <= cols)
                 {
-                    if (AreEqualInDiagonal(symbol, i, j, rowIncrement, colIncrement))
+                    if (AreEqualInDiagonal(symbol, i, j, rowIncrement, colIncrement) ||
+                        AreEqualInReverseDiagonal(symbol, i, j + targetCount - 1))
                     {
                         return true;
                     }
+
                 }
             }
         }
@@ -114,6 +116,19 @@ public class LinearEvaluator : IGameEvaluator
             }
 
             if (board.GetCell(row, col) != symbol)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool AreEqualInReverseDiagonal(char symbol, int startRow, int startCol)
+    {
+        for (int i = 0; i < targetCount; i++)
+        {
+            if (board.GetCell(startRow + i, startCol - i) != symbol)
             {
                 return false;
             }
