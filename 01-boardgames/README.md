@@ -28,8 +28,8 @@ Dans la plupart des méthodes de validation, les éléments du logiciel qui pose
 
 ## Procédure pour intégrer un joueur contrôlé par l’ordinateur et un système d’historisation et de persistance
 Pour implémenter ces nouvelles fonctionnalités, voici les étapes à suivre :
-1. Refactorisation du code : Tout d’abord, il est essentiel de rendre le code plus modulaire et générique. Cela facilitera l’intégration des nouvelles fonctionnalités.
-2. Création d’une classe pour le joueur contrôlé par l’ordinateur : Une nouvelle classe doit être créée pour gérer la logique du jeu pour le joueur contrôlé par l’ordinateur. Cette classe devra interagir avec les autres éléments du jeu (plateau, règles, etc.).
-3. Système d’historisation et de persistance : Une autre classe doit être développée pour gérer l’historisation et la persistance des données du jeu. Cette classe devra enregistrer les parties jouées, les scores, les mouvements, etc. dans une base de données ou un fichier.
+1. Refactorisation du code : Tout d’abord, il est essentiel de rendre le code plus modulaire et générique. Cela facilitera l’intégration des nouvelles fonctionnalités. Il faudra mettre en plage un faible couplage entre les classes en optant par du polymorphisme et non pas de l'héritage. 
+2. Création d’une classe pour le joueur contrôlé par l’ordinateur : Une nouvelle classe doit être créée pour gérer la logique du jeu pour le joueur contrôlé par l’ordinateur. Cette classe devra interagir avec les autres éléments du jeu (plateau, règles, etc.). Il faut mettre en place du polymorphisme pour pouvoir changer de joueur humain à joueur contrôlé par l’ordinateur en switchant entre joueur 1 et joueur 2, dans le code on devra juste appeler une méthode pour que le joueur (qu'il soit humain ou ordinateur) jour son tour, tout ça grâce au polymorphisme.
+3. Système d’historisation et de persistance : Une autre classe doit être développée pour gérer l’historisation et la persistance des données du jeu. Cette classe devra enregistrer les parties jouées, les scores, les mouvements, etc. dans un fichier tel que `json`.
 
 > Il est primordial de respecter les exigences de qualité robuste énoncées par les parties prenantes. N’oubliez pas que cette nouvelle fonctionnalité devra être testée rigoureusement.
