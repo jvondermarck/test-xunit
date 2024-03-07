@@ -26,6 +26,6 @@ public class TicTacToeFactory : IGameFactory
 
         IGame ticTacToeGame = new TicTacToe(gameLogic);
 
-        return gameLogic;
+        return ticTacToeGame;
     }
 }

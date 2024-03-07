@@ -18,7 +18,7 @@ public class ConnectFourFactory : IGameFactory
         GameLogic gameLogic = new GameLogicBuilder()
             .SetPlayer1(player1)
             .SetPlayer2(player2)
-            .SetRows(4)
+            .SetRows(6)
             .SetColumns(7)
             .SetEvaluator(board => new LinearEvaluator(board, targetCount)) // Pass a factory method to create IGameEvaluator
             .SetTargetCount(targetCount)
@@ -26,6 +26,6 @@ public class ConnectFourFactory : IGameFactory
 
         IGame connectFourGame = new ConnectFour(gameLogic);
 
-        return gameLogic;
+        return connectFourGame;
     }
 }
