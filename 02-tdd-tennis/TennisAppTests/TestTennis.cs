@@ -13,8 +13,19 @@ namespace TennisAppTests
         [InlineData(0, 3, "Love-Forty")]
         [InlineData(1, 1, "Fifteen-Fifteen")]
         [InlineData(2, 2, "Thirty-Thirty")]
-        [InlineData(3, 3, "Forty-Forty")]
-        [InlineData(4, 4, "Advantage-Advantage")]
+        [InlineData(3, 3, "Deuce")]
+        [InlineData(4, 4, "Deuce")]
+        [InlineData(5, 5, "Deuce")]
+        [InlineData(4, 3, "Advantage Player 1")]
+        [InlineData(3, 4, "Advantage Player 2")]
+        [InlineData(5, 4, "Advantage Player 1")]
+        [InlineData(4, 5, "Advantage Player 2")]
+        [InlineData(5, 3, "Player 1 wins")]
+        [InlineData(3, 5, "Player 2 wins")]
+        [InlineData(4, 1, "Player 1 wins")]
+        [InlineData(1, 4, "Player 2 wins")]
+        [InlineData(4, 2, "Player 1 wins")]
+        [InlineData(2, 4, "Player 2 wins")]
         public void Test_DisplayScore(int scorePlayer1, int scorePlayer2, string expectedResult)
         {
             string displayedScore = Tennis.DisplayScore(scorePlayer1, scorePlayer2);
