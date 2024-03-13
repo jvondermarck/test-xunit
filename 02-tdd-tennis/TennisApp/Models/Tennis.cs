@@ -15,8 +15,7 @@
         {
             var result = _evaluator.Evaluate(player1, player2);
 
-            if (result == null)
-                result = _score.GetScore(player1) + "-" + _score.GetScore(player2);
+            result ??= _score.GetScore(player1) + "-" + _score.GetScore(player2);
 
             return result;
         }
