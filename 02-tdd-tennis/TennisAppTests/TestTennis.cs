@@ -26,6 +26,7 @@ namespace TennisAppTests
         [InlineData(1, 4, "Player 2 wins")]
         [InlineData(4, 2, "Player 1 wins")]
         [InlineData(2, 4, "Player 2 wins")]
+        [InlineData(15, 14, "Advantage Player 1")]
         public void Test_DisplayScore(int scorePlayer1, int scorePlayer2, string expectedResult)
         {
             // Arrange
