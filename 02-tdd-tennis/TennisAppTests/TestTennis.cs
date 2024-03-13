@@ -28,7 +28,9 @@ namespace TennisAppTests
         [InlineData(2, 4, "Player 2 wins")]
         public void Test_DisplayScore(int scorePlayer1, int scorePlayer2, string expectedResult)
         {
-            string displayedScore = Tennis.DisplayScore(scorePlayer1, scorePlayer2);
+            // Arrange
+            Tennis tennis = new Tennis(new TennisScore());
+            string displayedScore = tennis.DisplayScore(scorePlayer1, scorePlayer2);
 
             // Assert
             Assert.Equal(expectedResult, displayedScore);
