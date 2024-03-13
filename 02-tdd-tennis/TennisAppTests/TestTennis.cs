@@ -30,7 +30,7 @@ namespace TennisAppTests
         public void Test_DisplayScore(int scorePlayer1, int scorePlayer2, string expectedResult)
         {
             // Arrange
-            Tennis tennis = new Tennis(new TennisScore());
+            Tennis tennis = new Tennis(new TennisScore(), new TennisScoreEvaluator());
             string displayedScore = tennis.DisplayScore(scorePlayer1, scorePlayer2);
 
             // Assert
