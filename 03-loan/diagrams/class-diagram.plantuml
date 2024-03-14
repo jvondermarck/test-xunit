@@ -1,0 +1,68 @@
+@startuml LoanManagementSystem
+
+namespace LoanManagementSystem {
+
+    class MonthlyPayment {
+        - paymentNumber: int
+        - principalPaid: double
+        - remainingBalance: double
+    }
+
+    interface Loan {
+        + GenerateMonthlyPayments(): List<MonthlyPayment>
+    }
+
+    class MortgageLoan implements Loan {
+        - loanAmount: double
+        - durationInMonths: int
+        - interestRate: double
+        - monthlyPayments: List<MonthlyPayment>
+        - calculateMonthlyPayment(): double
+        - amortizationSchedule(): List<MonthlyPayment]
+    }
+
+    interface CSVHandler {
+        + WriteToCSV(List<MonthlyPayment>, double): void
+    }
+
+    class MortgageCSVHandler implements CSVHandler {
+        - fileName: string
+        - WriteToCSV(List<MonthlyPayment>, double): void
+    }
+
+    abstract class LoanFactory {
+        + CreateLoan(string, double, int, double): Loan
+        - abstract CreateLoan(): Loan
+    }
+
+    class MortgageLoanFactory extends LoanFactory {
+        - CreateLoan(): Loan
+    }
+
+    class ConsoleHandler {
+        + ReadLoanParameters(): (double, int, double)
+        + DisplayLoanDetails(List<MonthlyPayment>): void
+        + DisplayError(string): void
+    }
+
+    class ExceptionHandler {
+        + HandleException(Exception): void
+    }
+
+    class LoanApp {
+        - loanFactory: LoanFactory
+        - csvHandler: CSVHandler
+        - consoleHandler: ConsoleHandler
+        - exceptionHandler: ExceptionHandler
+        + Run(): void
+    }
+        
+}
+
+LoanApp --> LoanFactory : Uses
+Loan --> MonthlyPayment : Uses
+LoanFactory --> Loan : Uses
+LoanApp --> CSVHandler : Uses
+LoanApp --> ConsoleHandler : Uses
+LoanApp --> ExceptionHandler : Uses
+@enduml
