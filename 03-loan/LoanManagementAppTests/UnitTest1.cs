@@ -1,4 +1,4 @@
-namespace MortgageSimulatorAppTests
+namespace LoanManagementAppTests
 {
     public class UnitTest1
     {

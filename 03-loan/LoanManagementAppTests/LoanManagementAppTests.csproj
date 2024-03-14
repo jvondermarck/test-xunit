@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MortgageSimulatorApp\MortgageSimulatorApp.csproj" />
+    <ProjectReference Include="..\LoanManagementApp\LoanManagementApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
