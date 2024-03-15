@@ -2,13 +2,13 @@
 
 public class LoanInputHandler
 {
-    private String[] args;
+    private string[] args;
 
     public LoanInputHandler(String[] args) {
         this.args = args;
     }
 
      public double getPrincipal() {
-        return 1;
+        return double.Parse(args[0]);
      }
 }
