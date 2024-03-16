@@ -16,7 +16,7 @@ public class LoanCalculator
 
         double rawMonthlyPayment = loan.GetPrincipal() * (monthlyInterestRate / (1 - Math.Pow(1 + monthlyInterestRate, -termInMonths)));
 
-        return Math.Round(rawMonthlyPayment, 2);
+        return Math.Round(rawMonthlyPayment, 0);
     }
 
     public List<Payment> GenerateAmortizationSchedule()
@@ -30,11 +30,25 @@ public class LoanCalculator
         {
             double interestPaid = remainingBalance * monthlyInterestRate;
             double principalPaid = monthlyPayment - interestPaid;
-            remainingBalance -= principalPaid;
+            
+            if (i == loan.GetTermInMonths())
+            {
+                principalPaid = remainingBalance;
+                remainingBalance = 0;
+            }
+            else
+            {
+                remainingBalance -= principalPaid;
+            }
 
             payments.Add(new Payment(i, principalPaid, remainingBalance));
         }
 
         return payments;
+    }
+
+    public double CalculateTotalCreditCost()
+    {
+        return CalculateMonthlyPayment() * loan.GetTermInMonths();
     }
 }
