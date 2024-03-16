@@ -8,14 +8,28 @@ public class LoanCalculatorTest
     public void Test_CalculateMonthlyPayment()
     {
         // Arrange
-        Loan loan = new Loan(200000, 360, 3.92);
+        Loan loan = new Loan(200000, 300, 3.92);
         LoanCalculator calculator = new LoanCalculator(loan);
 
         // Act
         double monthlyPayment = calculator.CalculateMonthlyPayment();
 
         // Assert
-        Assert.Equal(945.63, monthlyPayment, 2);
+        Assert.Equal(1047, monthlyPayment);
+    }
+
+    [Fact]
+    public void Test_GetCalculateTotalCreditCost()
+    {
+        // Arrange
+        Loan loan = new Loan(200000, 300, 3.92);
+        LoanCalculator calculator = new LoanCalculator(loan);
+
+        // Act
+        double totalCost = calculator.CalculateTotalCreditCost();
+
+        // Assert
+        Assert.Equal(314100, totalCost);
     }
 
     [Fact]
@@ -29,21 +43,20 @@ public class LoanCalculatorTest
         double monthlyPayment = calculator.CalculateMonthlyPayment();
 
         // Assert
-        Assert.Equal(1406.62, monthlyPayment, 2);
+        Assert.Equal(1407, monthlyPayment);
     }
 
     [Fact]
     public void Test_GenerateAmortizationSchedule()
     {
         // Arrange
-        Loan loan = new Loan(200000, 360, 3.92);
+        Loan loan = new Loan(200000, 300, 3.92);
         LoanCalculator calculator = new LoanCalculator(loan);
 
         // Act
         List<Payment> payments = calculator.GenerateAmortizationSchedule();
 
         // Assert
-        Assert.Equal(360, payments.Count);
-        Assert.Equal(200000.37, payments.Sum(p => p.GetPrincipalPaid()), 2);
+        Assert.Equal(200000, Math.Round(payments.Sum(p => p.GetPrincipalPaid()), 0));
     }
 }

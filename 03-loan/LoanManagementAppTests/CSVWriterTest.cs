@@ -15,17 +15,19 @@ public class CSVWriterTest
             new Payment(3, 900, 0)
         };
         string filePath = "test.csv";
+        double totalCost = 2000;
 
         // Act
-        //CSVWriter.WriteToFile(payments, filePath);
+        CSVWriter.WriteToFile(payments, filePath, totalCost);
 
         // Assert
         string[] lines = File.ReadAllLines(filePath);
-        Assert.Equal(4, lines.Length);
-        Assert.Equal("PaymentNumber,PrincipalPaid,RemainingBalance", lines[0]);
-        Assert.Equal("1,500.00,1500.00", lines[1]);
-        Assert.Equal("2,600.00,900.00", lines[2]);
-        Assert.Equal("3,900.00,0.00", lines[3]);
+        Assert.Equal(5, lines.Length);
+        Assert.Equal("Total Loan Cost,2000.00", lines[0]);
+        Assert.Equal("Monthly Payment Number,Principal Paid,Remaining Balance", lines[1]);
+        Assert.Equal("1,500.00,1500.00", lines[2]);
+        Assert.Equal("2,600.00,900.00", lines[3]);
+        Assert.Equal("3,900.00,0.00", lines[4]);
 
         // Clean up
         File.Delete(filePath);
