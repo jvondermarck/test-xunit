@@ -4,6 +4,9 @@ public class LoanInputHandler
 {
     private string[] args;
     private const double MINIMUM_LOAN_AMOUNT = 50000;
+    private const double MINIMUM_DURATION_IN_MONTHS = 9*12;
+    private const double MAXIMUM_DURATION_IN_MONTHS = 25*12;
+    private const double MAXIMUM_PERCENTAGE = 100;
 
     public LoanInputHandler(string[] args)
     {
@@ -12,7 +15,7 @@ public class LoanInputHandler
 
     public double GetPrincipal()
     {
-        double principal = GetUserInput(0, "Enter the loan amount");
+        double principal = GetUserInput(0);
         
         if (principal < MINIMUM_LOAN_AMOUNT)
         {
@@ -24,27 +27,34 @@ public class LoanInputHandler
 
     public int GetTermInMonths()
     {
-        return 1;
+        int termInMonths = (int)GetUserInput(1);
+
+        if (termInMonths < MINIMUM_DURATION_IN_MONTHS || termInMonths > MAXIMUM_DURATION_IN_MONTHS)
+        {
+            throw new LoanTermException();
+        }
+
+        return termInMonths;
     }
 
     public double GetAnnualInterestRate()
     {
-        return 1;
-    }
+        double annualInterestRate = GetUserInput(2);
 
-    private double GetUserInput(int indexArg, string prompt)
-    {
-        string input;
-        if (args.Length == 0)
+        if (annualInterestRate <= 0 || annualInterestRate > MAXIMUM_PERCENTAGE)
         {
-            Console.WriteLine($"{prompt}: ");
-            input = "";
-        } else
-        {
-            input = args[indexArg];
+            throw new InterestRateException();
         }
 
-        if (input == null)
+        return annualInterestRate;
+    }
+
+    private double GetUserInput(int indexArg)
+    {
+        string input = args[indexArg];
+
+        // Check if the input is not empty or null
+        if (string.IsNullOrEmpty(input))
         {
             throw new ArgumentNullException();
         }
