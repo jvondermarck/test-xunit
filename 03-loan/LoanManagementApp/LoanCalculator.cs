@@ -3,6 +3,7 @@
 public class LoanCalculator
 {
     private Loan loan;
+    private const int MonthsInYear = 12;
 
     public LoanCalculator(Loan loan)
     {
@@ -11,10 +12,11 @@ public class LoanCalculator
 
     public double CalculateMonthlyPayment()
     {
-        double monthlyInterestRate = loan.GetAnnualInterestRate() / 100 / 12;
+        double monthlyInterestRate = ConvertAnnualInterestRateToMonthlyInterestRate();
         int termInMonths = loan.GetTermInMonths();
+        double principal = loan.GetPrincipal();
 
-        double rawMonthlyPayment = loan.GetPrincipal() * (monthlyInterestRate / (1 - Math.Pow(1 + monthlyInterestRate, -termInMonths)));
+        double rawMonthlyPayment = principal * (monthlyInterestRate / (1 - Math.Pow(1 + monthlyInterestRate, -termInMonths)));
 
         return Math.Round(rawMonthlyPayment, 0);
     }
@@ -24,7 +26,7 @@ public class LoanCalculator
         List<Payment> payments = new List<Payment>();
         double remainingBalance = loan.GetPrincipal();
         double monthlyPayment = CalculateMonthlyPayment();
-        double monthlyInterestRate = loan.GetAnnualInterestRate() / 100 / 12;
+        double monthlyInterestRate = ConvertAnnualInterestRateToMonthlyInterestRate();
 
         for (int i = 1; i <= loan.GetTermInMonths(); i++)
         {
@@ -45,6 +47,11 @@ public class LoanCalculator
         }
 
         return payments;
+    }
+
+    private double ConvertAnnualInterestRateToMonthlyInterestRate()
+    {
+        return loan.GetAnnualInterestRate() / 100 / MonthsInYear;
     }
 
     public double CalculateTotalCreditCost()
