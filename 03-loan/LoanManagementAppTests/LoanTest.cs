@@ -8,7 +8,7 @@ public class LoanTest
     public void GetPrincipal_ValidPrincipal_ReturnsPrincipal()
     {
         // Arrange
-        var loan = new Loan(1000, 12, 0.1);
+        var loan = new Loan(1000, 12, 0.1m);
         
         // Act
         var principal = loan.GetPrincipal();
@@ -21,7 +21,7 @@ public class LoanTest
     public void GetTermInMonths_ValidTerm_ReturnsTerm()
     {
         // Arrange
-        var loan = new Loan(1000, 12, 0.1);
+        var loan = new Loan(1000, 12, 0.1m);
         
         // Act
         var term = loan.GetTermInMonths();
@@ -34,12 +34,12 @@ public class LoanTest
     public void GetAnnualInterestRate_ValidInterestRate_ReturnsInterestRate()
     {
         // Arrange
-        var loan = new Loan(1000, 12, 0.1);
+        var loan = new Loan(1000, 12, 0.1m);
         
         // Act
         var interestRate = loan.GetAnnualInterestRate();
         
         // Assert
-        Assert.Equal(0.1, interestRate);
+        Assert.Equal(0.1m, interestRate);
     }
 }

@@ -3,10 +3,10 @@
 public class Payment
 {
     private int _paymentNumber;
-    private double _principalPaid;
-    private double _remainingBalance;
+    private decimal _principalPaid;
+    private decimal _remainingBalance;
 
-    public Payment(int paymentNumber, double principalPaid, double remainingBalance)
+    public Payment(int paymentNumber, decimal  principalPaid, decimal  remainingBalance)
     {
         _paymentNumber = paymentNumber;
         _principalPaid = principalPaid;
@@ -18,12 +18,12 @@ public class Payment
         return _paymentNumber;
     }
 
-    public double GetPrincipalPaid()
+    public decimal GetPrincipalPaid()
     {
         return _principalPaid;
     }
 
-    public double GetRemainingBalance()
+    public decimal GetRemainingBalance()
     {
         return _remainingBalance;
     }

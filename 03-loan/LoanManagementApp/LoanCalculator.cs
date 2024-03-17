@@ -10,28 +10,28 @@ public class LoanCalculator
         this.loan = loan;
     }
 
-    public double CalculateMonthlyPayment()
+    public decimal CalculateMonthlyPayment()
     {
-        double monthlyInterestRate = ConvertAnnualInterestRateToMonthlyInterestRate();
+        decimal monthlyInterestRate = ConvertAnnualInterestRateToMonthlyInterestRate();
         int termInMonths = loan.GetTermInMonths();
-        double principal = loan.GetPrincipal();
+        decimal principal = loan.GetPrincipal();
 
-        double rawMonthlyPayment = principal * (monthlyInterestRate / (1 - Math.Pow(1 + monthlyInterestRate, -termInMonths)));
+        decimal rawMonthlyPayment = principal * (monthlyInterestRate / (1 - (decimal)Math.Pow((double)(1 + monthlyInterestRate), -termInMonths)));
 
-        return Math.Round(rawMonthlyPayment, 0);
+        return Math.Round(rawMonthlyPayment, 2, MidpointRounding.AwayFromZero);
     }
 
     public List<Payment> GenerateAmortizationSchedule()
     {
         List<Payment> payments = new List<Payment>();
-        double remainingBalance = loan.GetPrincipal();
-        double monthlyPayment = CalculateMonthlyPayment();
-        double monthlyInterestRate = ConvertAnnualInterestRateToMonthlyInterestRate();
+        decimal remainingBalance = loan.GetPrincipal();
+        decimal monthlyPayment = CalculateMonthlyPayment();
+        decimal monthlyInterestRate = ConvertAnnualInterestRateToMonthlyInterestRate();
 
         for (int i = 1; i <= loan.GetTermInMonths(); i++)
         {
-            double interestPaid = remainingBalance * monthlyInterestRate;
-            double principalPaid = monthlyPayment - interestPaid;
+            decimal interestPaid = remainingBalance * monthlyInterestRate;
+            decimal principalPaid = monthlyPayment - interestPaid;
             
             if (i == loan.GetTermInMonths())
             {
@@ -49,13 +49,15 @@ public class LoanCalculator
         return payments;
     }
 
-    private double ConvertAnnualInterestRateToMonthlyInterestRate()
+    private decimal ConvertAnnualInterestRateToMonthlyInterestRate()
     {
         return loan.GetAnnualInterestRate() / 100 / MonthsInYear;
     }
 
-    public double CalculateTotalCreditCost()
+    public decimal  CalculateTotalCreditCost()
     {
-        return CalculateMonthlyPayment() * loan.GetTermInMonths();
+        decimal rawTotalCost = CalculateMonthlyPayment() * loan.GetTermInMonths();
+        return Math.Round(rawTotalCost, 2, MidpointRounding.AwayFromZero);
     }
+
 }

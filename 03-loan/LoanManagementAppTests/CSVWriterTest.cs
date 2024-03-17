@@ -15,7 +15,7 @@ public class CSVWriterTest
             new Payment(3, 900, 0)
         };
         string filePath = "test.csv";
-        double totalCost = 2000;
+        decimal totalCost = 2000;
 
         // Act
         CSVWriter.WriteToFile(payments, filePath, totalCost);

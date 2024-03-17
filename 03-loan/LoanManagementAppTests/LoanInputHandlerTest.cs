@@ -12,7 +12,7 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            double principal = loanInputHandler.GetPrincipal();
+            decimal principal = loanInputHandler.GetPrincipal();
 
             // Assert
             Assert.Equal(50000, principal);
@@ -73,7 +73,7 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            double principal = loanInputHandler.GetPrincipal();
+            decimal principal = loanInputHandler.GetPrincipal();
 
             // Assert
             Assert.Equal(500000, principal);
@@ -131,10 +131,10 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            double annualInterestRate = loanInputHandler.GetAnnualInterestRate();
+            decimal annualInterestRate = loanInputHandler.GetAnnualInterestRate();
 
             // Assert
-            Assert.Equal(3.5, annualInterestRate);
+            Assert.Equal(3.5m, annualInterestRate);
         }
 
         [Fact]

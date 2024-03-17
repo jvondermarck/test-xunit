@@ -8,8 +8,8 @@ public class PaymentTest
     {
         // Arrange
         int paymentNumber = 1;
-        double principalPaid = 500;
-        double remainingBalance = 1500;
+        decimal principalPaid = 500;
+        decimal remainingBalance = 1500;
         Payment payment = new Payment(paymentNumber, principalPaid, remainingBalance);
 
         // Act & Assert
