@@ -8,7 +8,7 @@ namespace LoanManagementAppTests
         public void Test_GetPrincipal()
         {
             // Arrange
-            string[] args = { "50000" };
+            string[] args = { "--principal", "50000" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -22,7 +22,7 @@ namespace LoanManagementAppTests
         public void Test_GetPrincipal_InvalidLoanAmount()
         {
             // Arrange
-            string[] args = { "100" };
+            string[] args = { "--principal", "100" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -39,7 +39,7 @@ namespace LoanManagementAppTests
         public void Test_GetPrincipal_InvalidInput()
         {
             // Arrange
-            string[] args = { "invalid" };
+            string[] args = { "--principal","invalid" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -47,14 +47,14 @@ namespace LoanManagementAppTests
 
             // Assert
             var exception = Assert.Throws<FormatException>(act);
-            Assert.Equal("One of the identified items was in an invalid format.", exception.Message);
+            Assert.Equal("The argument 'principal' is not a valid number.", exception.Message);
         }
 
         [Fact]
         public void Test_GetPrincipal_NegativeInput()
         {
             // Arrange
-            string[] args = { "-100" };
+            string[] args = { "--principal","-100" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -62,14 +62,14 @@ namespace LoanManagementAppTests
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(act);
-            Assert.Equal("Specified argument was out of the range of valid values.", exception.Message);
+            Assert.Equal("Specified argument was out of the range of valid values. (Parameter 'The argument 'principal' cannot be negative.')", exception.Message);
         }
 
         [Fact]
         public void Test_GetPrincipal_ValidButTrailingSpaces()
         {
             // Arrange
-            string[] args = { "  500000  " };
+            string[] args = { "--principal","  500000  " };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -83,7 +83,7 @@ namespace LoanManagementAppTests
         public void Test_GetPrincipal_NullInput()
         {
             // Arrange
-            string[] args = { null! };
+            string[] args = { "--principal",null! };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -91,14 +91,14 @@ namespace LoanManagementAppTests
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(act);
-            Assert.Equal("Value cannot be null.", exception.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'The argument 'principal' is required.')", exception.Message);
         }
 
         [Fact]
         public void Test_GetTermInMonths()
         {
             // Arrange
-            string[] args = { "50000", "240" };
+            string[] args = { "--term", "240" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -112,7 +112,7 @@ namespace LoanManagementAppTests
         public void Test_GetTermInMonths_InvalidTerm()
         {
             // Arrange
-            string[] args = { "50000", "50" };
+            string[] args = { "--term", "50" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
@@ -127,7 +127,7 @@ namespace LoanManagementAppTests
         public void Test_GetAnnualInterestRate()
         {
             // Arrange
-            string[] args = { "50000", "240", "3.5" };
+            string[] args = { "--rate", "3.5" };
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
