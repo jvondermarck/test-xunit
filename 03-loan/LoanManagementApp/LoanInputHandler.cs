@@ -11,6 +11,14 @@ public class LoanInputHandler
     public LoanInputHandler(string[] argsCommand)
     {
         args = ParseArguments(argsCommand);
+
+        // Check if the dictionary contains only the expected keys
+        var expectedKeys = new HashSet<string> { "principal", "term", "rate" };
+        if (!expectedKeys.SetEquals(args.Keys))
+        {
+            throw new ArgumentException("Invalid arguments. Please provide only the principal, term, and rate.\n" +
+                                        "Example: dotnet run --principal 50000 --term 12 --rate 0.1");
+        }
     }
 
     private Dictionary<string, string> ParseArguments(string[] argsCommand)
