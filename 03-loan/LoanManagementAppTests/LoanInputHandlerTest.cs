@@ -19,6 +19,21 @@ namespace LoanManagementAppTests
             Assert.Equal("Invalid arguments. Please provide only the principal, term, and rate.\n" +
                          "Example: dotnet run --principal 50000 --term 12 --rate 0.1", exception.Message);
         }
+
+        [Fact]
+        public void Test_ParseArguments()
+        {
+            // Arrange
+            string[] args = { "--principal", "50000", "--term", "240", "--rate", "0.1" };
+
+            // Act
+            LoanInputHandler loanInputHandler = new LoanInputHandler(args);
+
+            // Assert
+            Assert.Equal(50000, loanInputHandler.GetPrincipal());
+            Assert.Equal(240, loanInputHandler.GetTermInMonths());
+            Assert.Equal(0.1m, loanInputHandler.GetAnnualInterestRate());
+        }
         
         [Fact]
         public void Test_GetPrincipal()
@@ -166,6 +181,21 @@ namespace LoanManagementAppTests
             // Assert
             var exception = Assert.Throws<InterestRateException>(act);
             Assert.Equal("The annual interest rate must be between 0 and 100%.", exception.Message);
+        }
+
+        [Fact]
+        public void Test_GetAnnualInterestRate_InvalidInput()
+        {
+            // Arrange
+            string[] args = { "--principal", "50000", "--term", "240", "--rate", "invalid" };
+            LoanInputHandler loanInputHandler = new LoanInputHandler(args);
+
+            // Act
+            Action act = () => loanInputHandler.GetAnnualInterestRate();
+
+            // Assert
+            var exception = Assert.Throws<FormatException>(act);
+            Assert.Equal("The argument 'rate' is not a valid number.", exception.Message);
         }
     }
 }

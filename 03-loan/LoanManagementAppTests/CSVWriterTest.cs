@@ -32,4 +32,25 @@ public class CSVWriterTest
         // Clean up
         File.Delete(filePath);
     }
+
+    [Fact]
+    public void Test_WriteToFile_EmptyPayments()
+    {
+        // Arrange
+        List<Payment> payments = new List<Payment>();
+        string filePath = "test.csv";
+        decimal totalCost = 0;
+
+        // Act
+        CSVWriter.WriteToFile(payments, filePath, totalCost);
+
+        // Assert
+        string[] lines = File.ReadAllLines(filePath);
+        Assert.Equal(2, lines.Length);
+        Assert.Equal("Total Loan Cost,0.00", lines[0]);
+        Assert.Equal("Monthly Payment Number,Principal Paid,Remaining Balance", lines[1]);
+
+        // Clean up
+        File.Delete(filePath);
+    }
 }
