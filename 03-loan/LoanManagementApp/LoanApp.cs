@@ -5,10 +5,6 @@ public class LoanApp
     {
         try  
         {
-            if(args.Length != 6)
-                throw new ArgumentException("Invalid number of arguments. Please provide the principal, term, and rate.\n" +
-                                            "Example: dotnet run --principal 50000 --term 12 --rate 0.1" );
-
             LoanInputHandler inputHandler = new LoanInputHandler(args);
             RunLoanCalculations(inputHandler);
         }
