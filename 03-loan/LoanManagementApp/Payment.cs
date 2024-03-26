@@ -1,30 +1,16 @@
-﻿namespace LoanManagementApp;
-
-public class Payment
+﻿namespace LoanManagementApp
 {
-    private int _paymentNumber;
-    private decimal _principalPaid;
-    private decimal _remainingBalance;
-
-    public Payment(int paymentNumber, decimal  principalPaid, decimal  remainingBalance)
+    public class Payment
     {
-        _paymentNumber = paymentNumber;
-        _principalPaid = principalPaid;
-        _remainingBalance = remainingBalance;
-    }
+        public int PaymentNumber { get; private set; }
+        public decimal PrincipalPaid { get; private set; }
+        public decimal RemainingBalance { get; private set; }
 
-    public int GetPaymentNumber()
-    {
-        return _paymentNumber;
-    }
-
-    public decimal GetPrincipalPaid()
-    {
-        return _principalPaid;
-    }
-
-    public decimal GetRemainingBalance()
-    {
-        return _remainingBalance;
+        public Payment(int paymentNumber, decimal principalPaid, decimal remainingBalance)
+        {
+            PaymentNumber = paymentNumber;
+            PrincipalPaid = principalPaid;
+            RemainingBalance = remainingBalance;
+        }
     }
 }

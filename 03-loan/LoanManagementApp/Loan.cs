@@ -1,30 +1,16 @@
-﻿namespace LoanManagementApp;
-
-public class Loan
+﻿namespace LoanManagementApp
 {
-    private decimal _principal;
-    private int _termInMonths;
-    private decimal _annualInterestRate;
-
-    public Loan(decimal principal, int termInMonths, decimal annualInterestRate)
+    public class Loan
     {
-        _principal = principal;
-        _termInMonths = termInMonths;
-        _annualInterestRate = annualInterestRate;
-    }
+        public decimal Principal { get; private set; }
+        public int TermInMonths { get; private set; }
+        public decimal AnnualInterestRate { get; private set; }
 
-    public decimal GetPrincipal()
-    {
-        return _principal;
-    }
-
-    public int GetTermInMonths()
-    {
-        return _termInMonths;
-    }
-
-    public decimal GetAnnualInterestRate()
-    {
-        return _annualInterestRate;
+        public Loan(decimal principal, int termInMonths, decimal annualInterestRate)
+        {
+            Principal = principal;
+            TermInMonths = termInMonths;
+            AnnualInterestRate = annualInterestRate;
+        }
     }
 }

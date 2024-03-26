@@ -11,7 +11,7 @@ public class LoanTest
         var loan = new Loan(1000, 12, 0.1m);
         
         // Act
-        var principal = loan.GetPrincipal();
+        var principal = loan.Principal;
         
         // Assert
         Assert.Equal(1000, principal);
@@ -24,7 +24,7 @@ public class LoanTest
         var loan = new Loan(1000, 12, 0.1m);
         
         // Act
-        var term = loan.GetTermInMonths();
+        var term = loan.TermInMonths;
         
         // Assert
         Assert.Equal(12, term);
@@ -37,7 +37,7 @@ public class LoanTest
         var loan = new Loan(1000, 12, 0.1m);
         
         // Act
-        var interestRate = loan.GetAnnualInterestRate();
+        var interestRate = loan.AnnualInterestRate;
         
         // Assert
         Assert.Equal(0.1m, interestRate);

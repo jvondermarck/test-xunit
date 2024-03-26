@@ -13,7 +13,7 @@ public class PaymentTest
         Payment payment = new Payment(paymentNumber, principalPaid, remainingBalance);
 
         // Act & Assert
-        Assert.Equal(paymentNumber, payment.GetPaymentNumber());
+        Assert.Equal(paymentNumber, payment.PaymentNumber);
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class PaymentTest
         Payment payment = new Payment(paymentNumber, principalPaid, remainingBalance);
 
         // Act & Assert
-        Assert.Equal(principalPaid, payment.GetPrincipalPaid());
+        Assert.Equal(principalPaid, payment.PrincipalPaid);
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class PaymentTest
         Payment payment = new Payment(paymentNumber, principalPaid, remainingBalance);
 
         // Act & Assert
-        Assert.Equal(remainingBalance, payment.GetRemainingBalance());
+        Assert.Equal(remainingBalance, payment.RemainingBalance);
     }
 
 

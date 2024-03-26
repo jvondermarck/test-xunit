@@ -13,7 +13,7 @@ public class CSVWriter
 
             foreach (Payment payment in payments)
             {
-                writer.WriteLine($"{payment.GetPaymentNumber()},{payment.GetPrincipalPaid():F2},{payment.GetRemainingBalance():F2}");
+                writer.WriteLine($"{payment.PaymentNumber},{payment.PrincipalPaid:F2},{payment.RemainingBalance:F2}");
             }
         }
     }
