@@ -18,7 +18,7 @@ public class LoanCalculator
 
         decimal rawMonthlyPayment = principal * (monthlyInterestRate / (1 - (decimal)Math.Pow((double)(1 + monthlyInterestRate), -termInMonths)));
 
-        return Math.Round(rawMonthlyPayment, 2, MidpointRounding.AwayFromZero);
+        return Math.Round(rawMonthlyPayment, 2, MidpointRounding.ToZero);
     }
 
     public List<Payment> GenerateAmortizationSchedule()
@@ -59,5 +59,4 @@ public class LoanCalculator
         decimal rawTotalCost = CalculateMonthlyPayment() * loan.TermInMonths;
         return Math.Round(rawTotalCost, 2, MidpointRounding.AwayFromZero);
     }
-
 }

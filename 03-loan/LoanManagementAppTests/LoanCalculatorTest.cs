@@ -6,9 +6,9 @@ namespace LoanManagementAppTests
     public class LoanCalculatorTest
     {
         [Theory]
-        [InlineData(200000, 300, 3.92, 1046.86)]
+        [InlineData(200000, 300, 3.92, 1046.85)]
         [InlineData(200000, 180, 0.85, 1183.84)]
-        [InlineData(300000, 240, 1.20, 1406.62)]
+        [InlineData(150000, 240, 2, 758.82)]
         public void Test_CalculateMonthlyPayment(decimal amount, int term, decimal rate, decimal expected)
         {
             // Arrange
@@ -23,8 +23,9 @@ namespace LoanManagementAppTests
         }
 
         [Theory]
-        [InlineData(200000, 300, 3.92, 314058)]
-        [InlineData(300000, 240, 1.20, 337588.80)]
+        [InlineData(200000, 300, 3.92, 314055.00)]
+        [InlineData(300000, 240, 1.20, 337586.40)]
+        [InlineData(150000, 240, 2, 182116.80)]
         public void Test_GetCalculateTotalCreditCost(decimal amount, int term, decimal rate, decimal expected)
         {
             // Arrange
