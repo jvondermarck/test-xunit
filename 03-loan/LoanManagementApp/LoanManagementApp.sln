@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanManagementApp", "LoanManagementApp.csproj", "{24976621-B594-4130-B675-E5BA4BE94921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanManagementApp", "LoanManagementApp.csproj", "{24976621-B594-4130-B675-E5BA4BE94921}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanManagementAppTests", "..\LoanManagementAppTests\LoanManagementAppTests.csproj", "{70A70F79-79FD-4A9B-8400-666AE15C719D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanManagementAppTests", "..\LoanManagementAppTests\LoanManagementAppTests.csproj", "{70A70F79-79FD-4A9B-8400-666AE15C719D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadManagementAppDomain", "..\LoadManagementAppDomain\LoadManagementAppDomain.csproj", "{8C8BC1F0-AFD9-46F5-A452-CD5E7C4C533D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{70A70F79-79FD-4A9B-8400-666AE15C719D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70A70F79-79FD-4A9B-8400-666AE15C719D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70A70F79-79FD-4A9B-8400-666AE15C719D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8BC1F0-AFD9-46F5-A452-CD5E7C4C533D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8BC1F0-AFD9-46F5-A452-CD5E7C4C533D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8BC1F0-AFD9-46F5-A452-CD5E7C4C533D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8BC1F0-AFD9-46F5-A452-CD5E7C4C533D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

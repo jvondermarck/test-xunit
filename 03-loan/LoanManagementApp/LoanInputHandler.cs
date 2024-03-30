@@ -1,12 +1,10 @@
-﻿namespace LoanManagementApp;
+﻿using LoadManagementAppDomain;
+
+namespace LoanManagementApp;
 
 public class LoanInputHandler
 {
     private Dictionary<string, string> args;
-    private const decimal MINIMUM_LOAN_AMOUNT = 50000;
-    private const decimal MINIMUM_DURATION_IN_MONTHS = 9*12;
-    private const decimal MAXIMUM_DURATION_IN_MONTHS = 25*12;
-    private const decimal MAXIMUM_PERCENTAGE = 100;
 
     public LoanInputHandler(string[] argsCommand)
     {
@@ -31,42 +29,22 @@ public class LoanInputHandler
         return argDictionary;
     }
 
-    public decimal GetPrincipal()
+    public Principal GetPrincipal()
     {
-        decimal principal = GetUserInput("principal");
-        
-        if (principal < MINIMUM_LOAN_AMOUNT)
-        {
-            throw new LoanAmountException();
-        }
-
-        return principal;
+        return new Principal(GetUserInput("principal"));
     }
 
-    public int GetTermInMonths()
+    public TermInMonths GetTermInMonths()
     {
-        int termInMonths = (int)GetUserInput("term");
-
-        if (termInMonths < MINIMUM_DURATION_IN_MONTHS || termInMonths > MAXIMUM_DURATION_IN_MONTHS)
-        {
-            throw new LoanTermException();
-        }
-
-        return termInMonths;
+        return new TermInMonths(GetUserInput("term"));
     }
 
-    public decimal GetAnnualInterestRate()
+    public AnnualInterestRate GetAnnualInterestRate()
     {
-        decimal annualInterestRate = GetUserInput("rate");
-        if (annualInterestRate <= 0 || annualInterestRate > MAXIMUM_PERCENTAGE)
-        {
-            throw new InterestRateException();
-        }
-
-        return annualInterestRate;
+        return new AnnualInterestRate(GetUserInput("rate"));
     }
 
-    private decimal GetUserInput(string argName)
+    private string GetUserInput(string argName)
     {
         string? input;
         if (!args.TryGetValue(argName, out input))
@@ -79,18 +57,7 @@ public class LoanInputHandler
         {
             throw new ArgumentNullException($"The argument '{argName}' is required.");
         }
-        
-        decimal value;
-        if (!decimal.TryParse(input, out value))
-        {
-            throw new FormatException($"The argument '{argName}' is not a valid number.");
-        }
 
-        if (value < 0)
-        {
-            throw new ArgumentOutOfRangeException($"The argument '{argName}' cannot be negative.");
-        }
-        return value;
+        return input;
     }
-
 }

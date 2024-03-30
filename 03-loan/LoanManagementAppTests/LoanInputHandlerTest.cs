@@ -1,3 +1,4 @@
+using LoadManagementAppDomain;
 using LoanManagementApp;
 
 namespace LoanManagementAppTests
@@ -30,9 +31,9 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Assert
-            Assert.Equal(50000, loanInputHandler.GetPrincipal());
-            Assert.Equal(240, loanInputHandler.GetTermInMonths());
-            Assert.Equal(0.1m, loanInputHandler.GetAnnualInterestRate());
+            Assert.Equal(50000, loanInputHandler.GetPrincipal().Value);
+            Assert.Equal(240, loanInputHandler.GetTermInMonths().Value);
+            Assert.Equal(0.1m, loanInputHandler.GetAnnualInterestRate().Value);
         }
         
         [Fact]
@@ -43,7 +44,7 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            decimal principal = loanInputHandler.GetPrincipal();
+            decimal principal = loanInputHandler.GetPrincipal().Value;
 
             // Assert
             Assert.Equal(50000, principal);
@@ -104,7 +105,7 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            decimal principal = loanInputHandler.GetPrincipal();
+            decimal principal = loanInputHandler.GetPrincipal().Value;
 
             // Assert
             Assert.Equal(500000, principal);
@@ -133,7 +134,7 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            int termInMonths = loanInputHandler.GetTermInMonths();
+            int termInMonths = loanInputHandler.GetTermInMonths().Value;
 
             // Assert
             Assert.Equal(240, termInMonths);
@@ -162,7 +163,7 @@ namespace LoanManagementAppTests
             LoanInputHandler loanInputHandler = new LoanInputHandler(args);
 
             // Act
-            decimal annualInterestRate = loanInputHandler.GetAnnualInterestRate();
+            decimal annualInterestRate = loanInputHandler.GetAnnualInterestRate().Value;
 
             // Assert
             Assert.Equal(3.5m, annualInterestRate);

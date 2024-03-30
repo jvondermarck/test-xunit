@@ -1,4 +1,5 @@
-﻿using LoanManagementApp;
+﻿using LoadManagementAppDomain;
+using LoanManagementApp;
 
 namespace LoanManagementAppTests;
 
@@ -8,38 +9,47 @@ public class LoanTest
     public void GetPrincipal_ValidPrincipal_ReturnsPrincipal()
     {
         // Arrange
-        var loan = new Loan(1000, 12, 0.1m);
+        var principal = new Principal(50000);
+        var duration = new TermInMonths(200);
+        var interestRate = new AnnualInterestRate(0.1m);
+        var loan = new Loan(principal, duration, interestRate);
         
         // Act
-        var principal = loan.Principal;
+        var principalExpected = loan.Principal.Value;
         
         // Assert
-        Assert.Equal(1000, principal);
+        Assert.Equal(50000, principalExpected);
     }
     
     [Fact]
     public void GetTermInMonths_ValidTerm_ReturnsTerm()
     {
         // Arrange
-        var loan = new Loan(1000, 12, 0.1m);
+        var principal = new Principal(50000);
+        var duration = new TermInMonths(200);
+        var interestRate = new AnnualInterestRate(0.1m);
+        var loan = new Loan(principal, duration, interestRate);
         
         // Act
-        var term = loan.TermInMonths;
+        var term = loan.TermInMonths.Value;
         
         // Assert
-        Assert.Equal(12, term);
+        Assert.Equal(200, term);
     }
     
     [Fact]
     public void GetAnnualInterestRate_ValidInterestRate_ReturnsInterestRate()
     {
         // Arrange
-        var loan = new Loan(1000, 12, 0.1m);
+        var principal = new Principal(50000);
+        var duration = new TermInMonths(200);
+        var interestRate = new AnnualInterestRate(0.1m);
+        var loan = new Loan(principal, duration, interestRate);
         
         // Act
-        var interestRate = loan.AnnualInterestRate;
+        var interestRateExpected = loan.AnnualInterestRate.Value;
         
         // Assert
-        Assert.Equal(0.1m, interestRate);
+        Assert.Equal(0.1m, interestRateExpected);
     }
 }

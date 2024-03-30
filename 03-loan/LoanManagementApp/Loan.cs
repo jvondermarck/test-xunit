@@ -1,12 +1,14 @@
-﻿namespace LoanManagementApp
+﻿using LoadManagementAppDomain;
+
+namespace LoanManagementApp
 {
     public class Loan
     {
-        public decimal Principal { get; private set; }
-        public int TermInMonths { get; private set; }
-        public decimal AnnualInterestRate { get; private set; }
+        public Principal Principal { get; private set; }
+        public TermInMonths TermInMonths { get; private set; }
+        public AnnualInterestRate AnnualInterestRate { get; private set; }
 
-        public Loan(decimal principal, int termInMonths, decimal annualInterestRate)
+        public Loan(Principal principal, TermInMonths termInMonths, AnnualInterestRate annualInterestRate)
         {
             Principal = principal;
             TermInMonths = termInMonths;

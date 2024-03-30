@@ -1,4 +1,4 @@
-﻿namespace LoanManagementApp;
+﻿namespace LoadManagementAppDomain;
 
 public class InterestRateException : Exception
 {

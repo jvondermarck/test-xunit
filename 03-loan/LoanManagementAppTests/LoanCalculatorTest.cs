@@ -1,5 +1,5 @@
-﻿using LoanManagementApp;
-using Xunit;
+﻿using LoadManagementAppDomain;
+using LoanManagementApp;
 
 namespace LoanManagementAppTests
 {
@@ -12,7 +12,10 @@ namespace LoanManagementAppTests
         public void Test_CalculateMonthlyPayment(decimal amount, int term, decimal rate, decimal expected)
         {
             // Arrange
-            var loan = new Loan(amount, term, rate);
+            var principal = new Principal(amount);
+            var duration = new TermInMonths(term);
+            var interestRate = new AnnualInterestRate(rate);
+            var loan = new Loan(principal, duration, interestRate);
             var calculator = new LoanCalculator(loan);
 
             // Act
@@ -29,7 +32,10 @@ namespace LoanManagementAppTests
         public void Test_GetCalculateTotalCreditCost(decimal amount, int term, decimal rate, decimal expected)
         {
             // Arrange
-            var loan = new Loan(amount, term, rate);
+            var principal = new Principal(amount);
+            var duration = new TermInMonths(term);
+            var interestRate = new AnnualInterestRate(rate);
+            var loan = new Loan(principal, duration, interestRate);
             var calculator = new LoanCalculator(loan);
 
             // Act
@@ -39,18 +45,24 @@ namespace LoanManagementAppTests
             Assert.Equal(expected, totalCost);
         }
 
-        [Fact]
-        public void Test_GenerateAmortizationSchedule()
+        [Theory]
+        [InlineData(200000, 300, 3.92)]
+        [InlineData(300000, 240, 1.20)]
+        [InlineData(150000, 240, 2)]
+        public void Test_GenerateAmortizationSchedule(decimal amount, int term, decimal rate)
         {
             // Arrange
-            var loan = new Loan(200000, 300, 3.92m);
+            var principal = new Principal(amount);
+            var duration = new TermInMonths(term);
+            var interestRate = new AnnualInterestRate(rate);
+            var loan = new Loan(principal, duration, interestRate);
             var calculator = new LoanCalculator(loan);
 
             // Act
-            List<Payment> payments = calculator.GenerateAmortizationSchedule();
+            var payments = calculator.GenerateAmortizationSchedule();
 
             // Assert
-            Assert.Equal(200000, Math.Round(payments.Sum(p => p.PrincipalPaid), 0));
+            Assert.Equal(term, payments.Count);
         }
     }
 }

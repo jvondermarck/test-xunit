@@ -1,4 +1,6 @@
-﻿namespace LoanManagementApp;
+﻿using LoadManagementAppDomain;
+
+namespace LoanManagementApp;
 public class LoanApp
 {
     public static void Main(string[] args)
@@ -17,9 +19,9 @@ public class LoanApp
 
     private static void RunLoanCalculations(LoanInputHandler inputHandler)
     {
-        decimal principal = inputHandler.GetPrincipal();
-        int termInMonths = inputHandler.GetTermInMonths();
-        decimal annualInterestRate = inputHandler.GetAnnualInterestRate();
+        Principal principal = inputHandler.GetPrincipal();
+        TermInMonths termInMonths = inputHandler.GetTermInMonths();
+        AnnualInterestRate annualInterestRate = inputHandler.GetAnnualInterestRate();
 
         Loan loan = new Loan(principal, termInMonths, annualInterestRate);
         LoanCalculator calculator = new LoanCalculator(loan);
