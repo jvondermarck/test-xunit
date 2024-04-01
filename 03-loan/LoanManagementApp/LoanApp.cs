@@ -28,6 +28,9 @@ public class LoanApp
         List<Payment> payments = calculator.GenerateAmortizationSchedule();
         decimal totalCost = calculator.CalculateTotalCreditCost();
         
-        CSVWriter.WriteToFile(payments, "amortization_schedule.csv", totalCost);
+        IFileSystem fileSystem = new FileSystem();
+        IClock clock = new Clock();
+        CSVWriter csvWriter = new CSVWriter(fileSystem, clock);
+        csvWriter.WriteToFile(payments, totalCost);
     }
 }
