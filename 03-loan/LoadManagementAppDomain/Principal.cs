@@ -14,16 +14,9 @@ public record Principal
 
     public Principal(string input)
     {
-        try
-        {
-            Value = Convert.ToDecimal(input);
-            if (Value < MINIMUM_LOAN_AMOUNT)
-                throw new LoanAmountException();
-        }
-        catch
-        {
-            throw new ArgumentException("input must be a decimal greater than or equal to " + MINIMUM_LOAN_AMOUNT);
-        }
+        Value = Convert.ToDecimal(input);
+        if (Value < MINIMUM_LOAN_AMOUNT)
+            throw new LoanAmountException();
     }
 
     public decimal Value { get; init; }

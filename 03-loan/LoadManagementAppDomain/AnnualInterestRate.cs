@@ -7,23 +7,16 @@ public record AnnualInterestRate
     public AnnualInterestRate(decimal value)
     {
         if (value <= 0 || value > MAXIMUM_PERCENTAGE)
-            throw new ArgumentOutOfRangeException("value");
+            throw new InterestRateException();
 
         this.Value = value;
     }
 
     public AnnualInterestRate(string input)
     {
-        try
-        {
-            Value = Convert.ToDecimal(input);
-            if (Value <= 0 || Value > MAXIMUM_PERCENTAGE)
-                throw new Exception();
-        }
-        catch
-        {
-            throw new ArgumentException("input must be a decimal between 0 and " + MAXIMUM_PERCENTAGE);
-        }
+        Value = Convert.ToDecimal(input);
+        if (Value <= 0 || Value > MAXIMUM_PERCENTAGE)
+            throw new InterestRateException();
     }
 
     public decimal Value { get; init; }

@@ -79,7 +79,7 @@ namespace LoanManagementAppTests
 
             // Assert
             var exception = Assert.Throws<FormatException>(act);
-            Assert.Equal("The argument 'principal' is not a valid number.", exception.Message);
+            Assert.Equal("The input string 'invalid' was not in a correct format.", exception.Message);
         }
 
         [Fact]
@@ -93,8 +93,8 @@ namespace LoanManagementAppTests
             Action act = () => loanInputHandler.GetPrincipal();
 
             // Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(act);
-            Assert.Equal("Specified argument was out of the range of valid values. (Parameter 'The argument 'principal' cannot be negative.')", exception.Message);
+            var exception = Assert.Throws<LoanAmountException>(act);
+            Assert.Equal("The loan amount must be greater than 50,000 euros.", exception.Message);
         }
 
         [Fact]
@@ -196,7 +196,7 @@ namespace LoanManagementAppTests
 
             // Assert
             var exception = Assert.Throws<FormatException>(act);
-            Assert.Equal("The argument 'rate' is not a valid number.", exception.Message);
+            Assert.Equal("The input string 'invalid' was not in a correct format.", exception.Message);
         }
     }
 }

@@ -31,17 +31,32 @@ public class LoanInputHandler
 
     public Principal GetPrincipal()
     {
-        return new Principal(GetUserInput("principal"));
+        try {
+            return new Principal(GetUserInput("principal"));
+        } catch (Exception e) {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     public TermInMonths GetTermInMonths()
     {
-        return new TermInMonths(GetUserInput("term"));
+        try {
+            return new TermInMonths(GetUserInput("term"));
+        } catch (Exception e) {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     public AnnualInterestRate GetAnnualInterestRate()
     {
-        return new AnnualInterestRate(GetUserInput("rate"));
+        try {
+            return new AnnualInterestRate(GetUserInput("rate"));
+        } catch (Exception e) {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     private string GetUserInput(string argName)
