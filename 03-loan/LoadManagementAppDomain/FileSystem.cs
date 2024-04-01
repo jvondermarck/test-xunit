@@ -9,6 +9,10 @@ public class FileSystem : IFileSystem
 
     public void SaveResult(string content, string fileName)
     {
+        string outputDirectory = "LoanPaymentsCSV";
+        Directory.CreateDirectory(outputDirectory);
+        fileName = Path.Combine(outputDirectory, fileName);
+
         File.AppendAllText(fileName, content);
     }
 }
