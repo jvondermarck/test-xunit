@@ -14,7 +14,8 @@ public class LoanInputHandler
         var expectedKeys = new HashSet<string> { "principal", "term", "rate" };
         if (!expectedKeys.SetEquals(args.Keys))
         {
-            throw new ArgumentException("Invalid arguments. Please provide only the principal, term, and rate.\n" + "Example: dotnet run --principal 50000 --term 12 --rate 0.1");
+            throw new ArgumentException("Invalid arguments. Please provide only the principal, term, and rate.\n" +
+                                        "Example: dotnet run --principal 200000 --term 300 --rate 1");
         }
     }
 
