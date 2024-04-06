@@ -14,8 +14,7 @@ public class LoanInputHandler
         var expectedKeys = new HashSet<string> { "principal", "term", "rate" };
         if (!expectedKeys.SetEquals(args.Keys))
         {
-            throw new ArgumentException("Invalid arguments. Please provide only the principal, term, and rate.\n" +
-                                        "Example: dotnet run --principal 50000 --term 12 --rate 0.1");
+            throw new ArgumentException("Invalid arguments. Please provide only the principal, term, and rate.\n" + "Example: dotnet run --principal 50000 --term 12 --rate 0.1");
         }
     }
 
@@ -62,13 +61,7 @@ public class LoanInputHandler
     private string GetUserInput(string argName)
     {
         string? input;
-        if (!args.TryGetValue(argName, out input))
-        {
-            throw new ArgumentNullException($"The argument '{argName}' is required.");
-        }
-
-        // Check if the input is not empty or null
-        if (string.IsNullOrEmpty(input))
+        if (!args.TryGetValue(argName, out input) || string.IsNullOrEmpty(input))
         {
             throw new ArgumentNullException($"The argument '{argName}' is required.");
         }
